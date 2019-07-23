@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Proyecto.Models.Artista>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.varbImagen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.varchNombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.varchPais)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.intAño)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.varchBiografia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genero.varchNombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @if (item.varbImagen != null)
+            {
+                <div class="photo-display">
+                    <img class="photo-display-img" src="@Url.Action("GetImage", "Artista", new { artistaID = item.ID })" width="150" height="200" />
+                </div>
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.varchNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.varchPais)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.intAño)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.varchBiografia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genero.varchNombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

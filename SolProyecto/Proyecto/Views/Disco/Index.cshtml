@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Proyecto.Models.Disco>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.varbPortada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.varchNombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.intAño)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Artista.varchNombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @if (item.varbPortada != null)
+            {
+                <div class="photo-display">
+                    <img class="photo-display-img" src="@Url.Action("GetImage", "Disco", new { discoID = item.ID })" width="150" height="200" />
+                </div>
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.varchNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.intAño)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Artista.varchNombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,80 @@
+﻿@model Proyecto.Models.Artista
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Artista</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.varbImagen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.varbImagen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nvarchImageMimeType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nvarchImageMimeType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.varchNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.varchNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.varchPais)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.varchPais)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.intAño)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.intAño)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.varchBiografia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.varchBiografia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genero.varchNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genero.varchNombre)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
