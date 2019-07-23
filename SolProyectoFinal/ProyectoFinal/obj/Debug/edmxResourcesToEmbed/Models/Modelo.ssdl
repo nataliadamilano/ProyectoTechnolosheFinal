@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProyectoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Artistas">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="varbImagen" Type="varbinary(max)" />
+    <Property Name="ImageMimeType" Type="nvarchar(max)" />
+    <Property Name="varchNombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="intAño" Type="int" Nullable="false" />
+    <Property Name="intGenero" Type="int" Nullable="false" />
+    <Property Name="varchBiografia" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Discos">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="varbPortada" Type="varbinary(max)" />
+    <Property Name="ImageMimeType" Type="nvarchar(max)" />
+    <Property Name="varchNombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="intAño" Type="int" Nullable="false" />
+    <Property Name="IDArtista" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Generos">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="varchNombre" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Pistas">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="varchNombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="intDuracion" Type="int" />
+    <Property Name="IDDisco" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Artistas_Generos">
+    <End Role="Generos" Type="Self.Generos" Multiplicity="1" />
+    <End Role="Artistas" Type="Self.Artistas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Generos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Artistas">
+        <PropertyRef Name="intGenero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Discos_Artistas">
+    <End Role="Artistas" Type="Self.Artistas" Multiplicity="1" />
+    <End Role="Discos" Type="Self.Discos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Artistas">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Discos">
+        <PropertyRef Name="IDArtista" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pistas_Discos">
+    <End Role="Discos" Type="Self.Discos" Multiplicity="1" />
+    <End Role="Pistas" Type="Self.Pistas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Discos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Pistas">
+        <PropertyRef Name="IDDisco" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProyectoModelStoreContainer">
+    <EntitySet Name="Artistas" EntityType="Self.Artistas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Discos" EntityType="Self.Discos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Generos" EntityType="Self.Generos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pistas" EntityType="Self.Pistas" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Artistas_Generos" Association="Self.FK_Artistas_Generos">
+      <End Role="Generos" EntitySet="Generos" />
+      <End Role="Artistas" EntitySet="Artistas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Discos_Artistas" Association="Self.FK_Discos_Artistas">
+      <End Role="Artistas" EntitySet="Artistas" />
+      <End Role="Discos" EntitySet="Discos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pistas_Discos" Association="Self.FK_Pistas_Discos">
+      <End Role="Discos" EntitySet="Discos" />
+      <End Role="Pistas" EntitySet="Pistas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProyectoModelStoreContainer" CdmEntityContainer="ProyectoEntities">
+    <EntitySetMapping Name="Artistas">
+      <EntityTypeMapping TypeName="ProyectoModel.Artista">
+        <MappingFragment StoreEntitySet="Artistas">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="varbImagen" ColumnName="varbImagen" />
+          <ScalarProperty Name="ImageMimeType" ColumnName="ImageMimeType" />
+          <ScalarProperty Name="varchNombre" ColumnName="varchNombre" />
+          <ScalarProperty Name="intAño" ColumnName="intAño" />
+          <ScalarProperty Name="intGenero" ColumnName="intGenero" />
+          <ScalarProperty Name="varchBiografia" ColumnName="varchBiografia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Discos">
+      <EntityTypeMapping TypeName="ProyectoModel.Disco">
+        <MappingFragment StoreEntitySet="Discos">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="varbPortada" ColumnName="varbPortada" />
+          <ScalarProperty Name="ImageMimeType" ColumnName="ImageMimeType" />
+          <ScalarProperty Name="varchNombre" ColumnName="varchNombre" />
+          <ScalarProperty Name="intAño" ColumnName="intAño" />
+          <ScalarProperty Name="IDArtista" ColumnName="IDArtista" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Generos">
+      <EntityTypeMapping TypeName="ProyectoModel.Genero">
+        <MappingFragment StoreEntitySet="Generos">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="varchNombre" ColumnName="varchNombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pistas">
+      <EntityTypeMapping TypeName="ProyectoModel.Pista">
+        <MappingFragment StoreEntitySet="Pistas">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="varchNombre" ColumnName="varchNombre" />
+          <ScalarProperty Name="intDuracion" ColumnName="intDuracion" />
+          <ScalarProperty Name="IDDisco" ColumnName="IDDisco" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

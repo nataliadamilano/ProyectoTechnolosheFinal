@@ -1,0 +1,50 @@
+﻿@model ProyectoFinal.Models.Disco
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Disco</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.varbPortada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.varbPortada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.varchNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.varchNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.intAño)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.intAño)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Artista.varchNombreArtistico)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Artista.varchNombreArtistico)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
