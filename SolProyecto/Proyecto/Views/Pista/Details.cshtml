@@ -1,0 +1,42 @@
+﻿@model Proyecto.Models.Pista
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pista</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.varchNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.varchNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.intDuracion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.intDuracion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Disco.nvarchImageMimeType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Disco.nvarchImageMimeType)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

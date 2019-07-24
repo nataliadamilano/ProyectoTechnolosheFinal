@@ -49,9 +49,8 @@ namespace Proyecto.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Correo electrónico")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Usuario")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

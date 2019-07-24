@@ -29,7 +29,10 @@ namespace Proyecto.Models
 
         [HiddenInput(DisplayValue = false)]
         public string nvarchImageMimeType { get; set; }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "El nombre no puede estar vacío.")]
+        [RegularExpression(".+@.+@+!+*+~+..+",
+                        ErrorMessage = "No se permiten caracteres especiales tales como '!','@','.','*', '~'.")]
         [DisplayName("Nombre del artista")]
         public string varchNombre { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "El país no puede estar vacío.")]
