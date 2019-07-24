@@ -29,6 +29,7 @@ namespace Proyecto.Models
 
         [HiddenInput(DisplayValue = false)]
         public string nvarchImageMimeType { get; set; }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "El nombre no puede estar vacío.")]
         [DisplayName("Nombre del artista")]
         public string varchNombre { get; set; }

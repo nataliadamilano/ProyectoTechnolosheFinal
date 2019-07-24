@@ -1,41 +1,91 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/Autocompletar.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Pacifico|Quicksand:700&display=swap" rel="stylesheet">
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Nombre de la aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    @* <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Nombre de la aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Géneros", "Index", "Genero")</li>
+                        <li>@Html.ActionLink("Artistas", "Index", "Artista")</li>
+                        <li>@Html.ActionLink("Discos", "Index", "Disco")</li>
+                        <li>@Html.ActionLink("Canciones", "Index", "Pista")</li>
+
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Géneros", "Index", "Genero")</li>
-                    <li>@Html.ActionLink("Artistas", "Index", "Artista")</li>
-                    <li>@Html.ActionLink("Discos", "Index", "Disco")</li>
-                </ul>
+        </div> *@
+    <header>
+        <nav id="navegador" class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
+            <div class="margen"></div>
+            @Html.ActionLink("La Disquera", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @id = "logo" })
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav">
+                    @Html.ActionLink("Home", "Index", new { controller = "Home" }, new { @class = "nav-item nav-link active" })
+                    <!--<a id="adescubri" href="#" class="nav-item nav-link">Descubrí</a> -->
+                    @Html.ActionLink("Artistas", "Index", new { controller = "Artista" }, new { @class = "nav-item nav-link" })
+                    @*@Html.ActionLink("Artistas", "Index", "Artista", new { @class = "nav-item nav-link" }) *@
+                    @Html.ActionLink("Géneros", "Index", new { controller = "Genero" }, new { @class = "nav-item nav-link" })
+
+                </div>
+
+                <form id="navbarSearchForm" class="form-inline ml-auto">
+                    <input type="text" id="myInput" class="form-control mr-sm-2" placeholder="Buscá por artista/género/álbum...">
+                    <button id="btn-search" type="submit" class="btn btn-outline-light">Buscar</button>
+                </form>
                 @Html.Partial("_LoginPartial")
+
             </div>
-        </div>
-    </div>
+            <div class="margen"></div>
+        </nav>
+    </header>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+            <div id="foot" class="row">
+                <div id="footeruno" class="col-12 col-xs-4 col-lg-12 col-md-12">
+                    <span class="redes">Redes Sociales</span>
+                </div>
+                <div id="footer" class="col-12 col-xs-4 col-lg-12 col-md-12">
+                    <a href="https://www.twitter.com"><img src="~/Images/twitter.png" alt="Twitter"></a>
+                    <a href="https://www.twitter.com" class="footer">Twitter</a>
+                </div>
+                <div id="footer" class="col-12 col-xs-4 col-lg-12 col-md-12">
+                    <a href="https://www.facebook.com"><img src="~/Images/facebook.png" alt="Facebook"></a>
+                    <a href="https://www.facebook.com" class="footer">Facebook</a>
+                </div>
+                <div id="footer" class="col-12 col-xs-4 col-lg-12 col-md-12">
+                    <a href="https://www.instagram.com"><img src="~/Images/instagram.png" alt="Instagram"></a>
+                    <a class="footer" href="https://www.instagram.com">Instagram</a>
+                </div>
+                <div id="footer" class="col-12 col-xs-4 col-lg-12 col-md-12"></div>
+            </div>
         </footer>
     </div>
 

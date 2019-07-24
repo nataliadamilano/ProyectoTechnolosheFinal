@@ -4,44 +4,50 @@
     ViewBag.Title = "Index";
 }
 
-<!-- <h2>Index</h2>
+<h2>Index</h2>
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.varchNombre)
+            </th>
+            <th></th>
+        </tr>
 
-<p>
-   @* @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.varchNombre)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.varchNombre)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID }) *@
-        </td>
-    </tr>
-}
-
-</table>
-    -->
-@Html.ActionLink("Create New", "Create")
-<h2>Combos en cascada</h2>
-<div class="form-group">
-    <label>Géneros</label>
-    <select id="generos" class="form-control">
-        @foreach (var item in Model)
+        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
         {
-        <option value="@item.ID">
-            @item.varchNombre
-        </option>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
         }
-    </select>
-</div>
+        </tr>
+        }
+
+    </table>
+
+    @*@Html.ActionLink("Create New", "Create")
+        <h2>Combos en cascada</h2>
+        <div class="form-group">
+            <label>Géneros</label>
+            <select id="generos" class="form-control">
+                @foreach (var item in Model)
+                {
+                <option value="@item.ID">
+                    @item.varchNombre
+                </option>
+                }
+            </select>
+        </div> *@

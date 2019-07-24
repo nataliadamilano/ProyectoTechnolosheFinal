@@ -37,11 +37,11 @@ namespace Proyecto.Controllers
         }
 
         // GET: Artista/Create
-      /*  public ActionResult Create()
-        {
-            ViewBag.IDGenero = new SelectList(db.Generos, "ID", "varchNombre");
-            return View();
-        } */
+        /*  public ActionResult Create()
+          {
+              ViewBag.IDGenero = new SelectList(db.Generos, "ID", "varchNombre");
+              return View();
+          } */
 
         // GET: /Artista/Create
         public ActionResult Create()
@@ -154,6 +154,27 @@ namespace Proyecto.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult _UltimasAdiciones(int number = 0)
+        {
+            //We want to display only the latest photos when a positive integer is supplied to the view.
+            //Otherwise we'll display them all
+            List<Artista> artistas;
+
+            if (number == 0)
+            {
+                artistas = db.Artistas.ToList();
+            }
+            else
+            {
+                artistas = (from p in db.Artistas
+                          orderby p.ID descending
+                          select p).Take(number).ToList();
+            }
+
+            return PartialView("_UltimasAdiciones", artistas);
+        }
+
 
         //Este método obtiene la imagen a partir de un ID de artista que se le pasa
         public FileContentResult GetImage(int artistaID)
