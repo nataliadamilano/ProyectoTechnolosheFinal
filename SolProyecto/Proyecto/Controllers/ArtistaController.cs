@@ -175,7 +175,16 @@ namespace Proyecto.Controllers
             return PartialView("_UltimasAdiciones", artistas);
         }
 
+        public ActionResult TraerDiscosporArtista (int? id)
+        {
+            Artista artista = (from a in db.Artistas where a.ID == id select a).FirstOrDefault();
 
+            if (artista == null)
+            {
+                return HttpNotFound();
+            }
+            return View(artista);
+        }
         //Este método obtiene la imagen a partir de un ID de artista que se le pasa
         public FileContentResult GetImage(int artistaID)
         {
