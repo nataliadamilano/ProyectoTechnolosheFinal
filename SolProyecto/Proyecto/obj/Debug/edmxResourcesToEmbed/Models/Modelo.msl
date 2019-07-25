@@ -7,11 +7,11 @@
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="varbImagen" ColumnName="varbImagen" />
           <ScalarProperty Name="nvarchImageMimeType" ColumnName="nvarchImageMimeType" />
-          <ScalarProperty Name="varchNombre" ColumnName="varchNombre" />
-          <ScalarProperty Name="varchPais" ColumnName="varchPais" />
+          <ScalarProperty Name="nvarchNombre" ColumnName="nvarchNombre" />
+          <ScalarProperty Name="nvarchPais" ColumnName="nvarchPais" />
           <ScalarProperty Name="intAño" ColumnName="intAño" />
           <ScalarProperty Name="IDGenero" ColumnName="IDGenero" />
-          <ScalarProperty Name="varchBiografia" ColumnName="varchBiografia" />
+          <ScalarProperty Name="nvarchBiografia" ColumnName="nvarchBiografia" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -21,7 +21,7 @@
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="varbPortada" ColumnName="varbPortada" />
           <ScalarProperty Name="nvarchImageMimeType" ColumnName="nvarchImageMimeType" />
-          <ScalarProperty Name="varchNombre" ColumnName="varchNombre" />
+          <ScalarProperty Name="nvarchNombre" ColumnName="nvarchNombre" />
           <ScalarProperty Name="intAño" ColumnName="intAño" />
           <ScalarProperty Name="IDArtista" ColumnName="IDArtista" />
         </MappingFragment>
@@ -31,7 +31,7 @@
       <EntityTypeMapping TypeName="ProyectoModel.Genero">
         <MappingFragment StoreEntitySet="Generos">
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="varchNombre" ColumnName="varchNombre" />
+          <ScalarProperty Name="nvarchNombre" ColumnName="nvarchNombre" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -39,8 +39,9 @@
       <EntityTypeMapping TypeName="ProyectoModel.Pista">
         <MappingFragment StoreEntitySet="Pistas">
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="varchNombre" ColumnName="varchNombre" />
+          <ScalarProperty Name="nvarchNombre" ColumnName="nvarchNombre" />
           <ScalarProperty Name="intDuracion" ColumnName="intDuracion" />
+          <ScalarProperty Name="nvarchPath" ColumnName="nvarchPath" />
           <ScalarProperty Name="IDDisco" ColumnName="IDDisco" />
         </MappingFragment>
       </EntityTypeMapping>

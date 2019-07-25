@@ -18,7 +18,7 @@ namespace Proyecto.Controllers
        public ActionResult Index()
         {
             return View(db.Generos.ToList());
-        } 
+        }
 
 
         // GET: Genero/Details/5
@@ -43,11 +43,9 @@ namespace Proyecto.Controllers
         }
 
         // POST: Genero/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,varchNombre")] Genero genero)
+        public ActionResult Create([Bind(Include = "ID,nvarchNombre")] Genero genero)
         {
             if (ModelState.IsValid)
             {
@@ -75,11 +73,9 @@ namespace Proyecto.Controllers
         }
 
         // POST: Genero/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,varchNombre")] Genero genero)
+        public ActionResult Edit([Bind(Include = "ID,nvarchNombre")] Genero genero)
         {
             if (ModelState.IsValid)
             {
@@ -114,6 +110,17 @@ namespace Proyecto.Controllers
             db.Generos.Remove(genero);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult _TraerArtistasPorGenero(int? id)
+        {
+            Genero genero = (from g in db.Generos where g.ID == id select g).FirstOrDefault();
+
+            if (genero == null)
+            {
+                return HttpNotFound();
+            }
+            return View(genero);
         }
 
         protected override void Dispose(bool disposing)

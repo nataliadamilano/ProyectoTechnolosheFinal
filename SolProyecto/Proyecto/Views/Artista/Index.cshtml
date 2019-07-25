@@ -10,6 +10,7 @@
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
+}
     <input type="text" id="myInput" onkeyup="buscar()" placeholder="Buscar por nombre...">
 
     <table id="myTable" class="table">
@@ -18,19 +19,19 @@
                 @Html.DisplayNameFor(model => model.varbImagen)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.varchNombre)
+                @Html.DisplayNameFor(model => model.nvarchNombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.varchPais)
+                @Html.DisplayNameFor(model => model.nvarchPais)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.intAño)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.varchBiografia)
+                @Html.DisplayNameFor(model => model.nvarchBiografia)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Genero.varchNombre)
+                @Html.DisplayNameFor(model => model.Genero.nvarchNombre)
             </th>
             <th></th>
         </tr>
@@ -46,48 +47,53 @@
                     }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.varchNombre)
+                    @Html.DisplayFor(modelItem => item.nvarchNombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.varchPais)
+                    @Html.DisplayFor(modelItem => item.nvarchPais)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.intAño)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.varchBiografia)
+                    @Html.DisplayFor(modelItem => item.nvarchBiografia)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Genero.varchNombre)
+                    @Html.DisplayFor(modelItem => item.Genero.nvarchNombre)
                 </td>
                 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                 {
-                <td>
-                    @Html.ActionLink("Ver Discos", "TraerDiscosporArtista", new { id = item.ID })
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                </td>
+                    <td>
+                        @Html.ActionLink("Ver Discos", "TraerDiscosporArtista", new { id = item.ID })
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>
                 }
             </tr>
         }
 
 
     </table>
-}
+
+
+
+<div>
+    @Html.ActionLink("Inicio", "Index", new { controller = "Home" })
+</div>
 
 @* <section id="descubri">
-    <div class="content">
-        @foreach (var item in Model)
-        {
-
-            if (item.varbImagen != null)
+        <div class="content">
+            @foreach (var item in Model)
             {
-                <div class="photo-display">
-                    <img class="photo-display-img" src="@Url.Action("GetImage", "Artista", new { artistaID = item.ID })" width="150" height="200" />
-                </div>
-            }
 
-        }
-    </div>
-</section> *@
+                if (item.varbImagen != null)
+                {
+                    <div class="photo-display">
+                        <img class="photo-display-img" src="@Url.Action("GetImage", "Artista", new { artistaID = item.ID })" width="150" height="200" />
+                    </div>
+                }
+
+            }
+        </div>
+    </section> *@

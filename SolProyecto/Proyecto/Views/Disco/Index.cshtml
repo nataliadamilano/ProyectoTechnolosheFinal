@@ -17,13 +17,13 @@
                 @Html.DisplayNameFor(model => model.varbPortada)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.varchNombre)
+                @Html.DisplayNameFor(model => model.nvarchNombre)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.intAño)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Artista.varchNombre)
+                @Html.DisplayNameFor(model => model.Artista.nvarchNombre)
             </th>
             <th></th>
         </tr>
@@ -40,13 +40,13 @@
             }
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.varchNombre)
+            @Html.DisplayFor(modelItem => item.nvarchNombre)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.intAño)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Artista.varchNombre)
+            @Html.DisplayFor(modelItem => item.Artista.nvarchNombre)
         </td>
         @if (Request.IsAuthenticated && User.IsInRole("Admin"))
         {

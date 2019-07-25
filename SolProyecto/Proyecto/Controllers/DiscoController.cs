@@ -37,14 +37,16 @@ namespace Proyecto.Controllers
         }
 
         // GET: Disco/Create
+        [Authorize]
         public ActionResult Create()
         {
             Disco nuevodisco = new Disco();
-            ViewBag.IDArtista = new SelectList(db.Artistas, "ID", "varchNombre");
+            ViewBag.IDArtista = new SelectList(db.Artistas, "ID", "nvarchNombre");
             return View(nuevodisco);
         }
 
         // POST: Disco/Create
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Disco disco, HttpPostedFileBase image)
@@ -65,11 +67,12 @@ namespace Proyecto.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IDArtista = new SelectList(db.Artistas, "ID", "varchNombre", disco.IDArtista);
+            ViewBag.IDArtista = new SelectList(db.Artistas, "ID", "nvarchNombre", disco.IDArtista);
             return View(disco);
         }
 
         // GET: Disco/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -81,16 +84,15 @@ namespace Proyecto.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IDArtista = new SelectList(db.Artistas, "ID", "varchNombre", disco.IDArtista);
+            ViewBag.IDArtista = new SelectList(db.Artistas, "ID", "nvarchNombre", disco.IDArtista);
             return View(disco);
         }
 
         // POST: Disco/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,varbPortada,nvarchImageMimeType,varchNombre,intAño,IDArtista")] Disco disco)
+        public ActionResult Edit([Bind(Include = "ID,varbPortada,nvarchImageMimeType,nvarchNombre,intAño,IDArtista")] Disco disco)
         {
             if (ModelState.IsValid)
             {
@@ -98,11 +100,12 @@ namespace Proyecto.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IDArtista = new SelectList(db.Artistas, "ID", "varchNombre", disco.IDArtista);
+            ViewBag.IDArtista = new SelectList(db.Artistas, "ID", "nvarchNombre", disco.IDArtista);
             return View(disco);
         }
 
         // GET: Disco/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -118,6 +121,7 @@ namespace Proyecto.Controllers
         }
 
         // POST: Disco/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -142,6 +146,27 @@ namespace Proyecto.Controllers
                 return null;
             }
         }
+
+        public ActionResult _UltimasAdicionesDiscos(int number = 0)
+        {
+            //We want to display only the latest photos when a positive integer is supplied to the view.
+            //Otherwise we'll display them all
+            List<Disco> discos;
+
+            if (number == 0)
+            {
+                discos = db.Discos.ToList();
+            }
+            else
+            {
+                discos = (from d in db.Discos
+                            orderby d.ID descending
+                            select d).Take(number).ToList();
+            }
+
+            return PartialView("_UltimasAdicionesDiscos", discos);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

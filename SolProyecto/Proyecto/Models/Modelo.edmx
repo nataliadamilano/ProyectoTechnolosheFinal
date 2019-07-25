@@ -12,11 +12,11 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="varbImagen" Type="varbinary(max)" />
           <Property Name="nvarchImageMimeType" Type="nvarchar(max)" />
-          <Property Name="varchNombre" Type="varchar" MaxLength="80" Nullable="false" />
-          <Property Name="varchPais" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nvarchNombre" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="nvarchPais" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="intAño" Type="int" Nullable="false" />
           <Property Name="IDGenero" Type="int" Nullable="false" />
-          <Property Name="varchBiografia" Type="varchar(max)" />
+          <Property Name="nvarchBiografia" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Discos">
           <Key>
@@ -25,7 +25,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="varbPortada" Type="varbinary(max)" />
           <Property Name="nvarchImageMimeType" Type="nvarchar(max)" />
-          <Property Name="varchNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nvarchNombre" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="intAño" Type="int" Nullable="false" />
           <Property Name="IDArtista" Type="int" Nullable="false" />
         </EntityType>
@@ -34,15 +34,16 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="varchNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nvarchNombre" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Pistas">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="varchNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nvarchNombre" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="intDuracion" Type="int" />
+          <Property Name="nvarchPath" Type="nvarchar" MaxLength="100" />
           <Property Name="IDDisco" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Artistas_Generos">
@@ -111,11 +112,11 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="varbImagen" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="nvarchImageMimeType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="varchNombre" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="varchPais" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nvarchNombre" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nvarchPais" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="intAño" Type="Int32" Nullable="false" />
           <Property Name="IDGenero" Type="Int32" Nullable="false" />
-          <Property Name="varchBiografia" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nvarchBiografia" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Genero" Relationship="Self.FK_Artistas_Generos" FromRole="Artistas" ToRole="Generos" />
           <NavigationProperty Name="Discos" Relationship="Self.FK_Discos_Artistas" FromRole="Artistas" ToRole="Discos" />
         </EntityType>
@@ -126,7 +127,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="varbPortada" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="nvarchImageMimeType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="varchNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nvarchNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="intAño" Type="Int32" Nullable="false" />
           <Property Name="IDArtista" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Artista" Relationship="Self.FK_Discos_Artistas" FromRole="Discos" ToRole="Artistas" />
@@ -137,7 +138,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="varchNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nvarchNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Artistas" Relationship="Self.FK_Artistas_Generos" FromRole="Generos" ToRole="Artistas" />
         </EntityType>
         <EntityType Name="Pista">
@@ -145,8 +146,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="varchNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nvarchNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="intDuracion" Type="Int32" />
+          <Property Name="nvarchPath" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="IDDisco" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Disco" Relationship="Self.FK_Pistas_Discos" FromRole="Pistas" ToRole="Discos" />
         </EntityType>
@@ -216,11 +218,11 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="varbImagen" ColumnName="varbImagen" />
                 <ScalarProperty Name="nvarchImageMimeType" ColumnName="nvarchImageMimeType" />
-                <ScalarProperty Name="varchNombre" ColumnName="varchNombre" />
-                <ScalarProperty Name="varchPais" ColumnName="varchPais" />
+                <ScalarProperty Name="nvarchNombre" ColumnName="nvarchNombre" />
+                <ScalarProperty Name="nvarchPais" ColumnName="nvarchPais" />
                 <ScalarProperty Name="intAño" ColumnName="intAño" />
                 <ScalarProperty Name="IDGenero" ColumnName="IDGenero" />
-                <ScalarProperty Name="varchBiografia" ColumnName="varchBiografia" />
+                <ScalarProperty Name="nvarchBiografia" ColumnName="nvarchBiografia" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -230,7 +232,7 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="varbPortada" ColumnName="varbPortada" />
                 <ScalarProperty Name="nvarchImageMimeType" ColumnName="nvarchImageMimeType" />
-                <ScalarProperty Name="varchNombre" ColumnName="varchNombre" />
+                <ScalarProperty Name="nvarchNombre" ColumnName="nvarchNombre" />
                 <ScalarProperty Name="intAño" ColumnName="intAño" />
                 <ScalarProperty Name="IDArtista" ColumnName="IDArtista" />
               </MappingFragment>
@@ -240,7 +242,7 @@
             <EntityTypeMapping TypeName="ProyectoModel.Genero">
               <MappingFragment StoreEntitySet="Generos">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="varchNombre" ColumnName="varchNombre" />
+                <ScalarProperty Name="nvarchNombre" ColumnName="nvarchNombre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -248,8 +250,9 @@
             <EntityTypeMapping TypeName="ProyectoModel.Pista">
               <MappingFragment StoreEntitySet="Pistas">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="varchNombre" ColumnName="varchNombre" />
+                <ScalarProperty Name="nvarchNombre" ColumnName="nvarchNombre" />
                 <ScalarProperty Name="intDuracion" ColumnName="intDuracion" />
+                <ScalarProperty Name="nvarchPath" ColumnName="nvarchPath" />
                 <ScalarProperty Name="IDDisco" ColumnName="IDDisco" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -4,7 +4,7 @@
     ViewBag.Title = "TraerDiscosporArtista";
 }
 
-<h2>TraerDiscosporArtista</h2>
+<h2>@Model.nvarchNombre</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,7 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Discos.FirstOrDefault().varchNombre)
+            @Html.DisplayNameFor(model => model.Discos.FirstOrDefault().nvarchNombre)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Discos.FirstOrDefault().varbPortada)
@@ -22,7 +22,7 @@
 @foreach (var item in Model.Discos) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.varchNombre)
+            @Html.DisplayFor(modelItem => item.nvarchNombre)
         </td>
         <td>
             @if (item.varbPortada != null)

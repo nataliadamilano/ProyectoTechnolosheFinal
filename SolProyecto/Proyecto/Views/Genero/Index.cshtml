@@ -11,43 +11,48 @@
         @Html.ActionLink("Create New", "Create")
     </p>
 }
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.varchNombre)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+<table class="table">
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.varchNombre)
-        </td>
-        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-        {
+        <th>
+            @Html.DisplayNameFor(model => model.nvarchNombre)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @Html.DisplayFor(modelItem => item.nvarchNombre)
             </td>
-        }
+            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Ver Artistas", "_TraerArtistasPorGenero", new { id = item.ID })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            }
         </tr>
-        }
+    }
 
-    </table>
+</table>
 
-    @*@Html.ActionLink("Create New", "Create")
-        <h2>Combos en cascada</h2>
-        <div class="form-group">
-            <label>Géneros</label>
-            <select id="generos" class="form-control">
-                @foreach (var item in Model)
-                {
-                <option value="@item.ID">
-                    @item.varchNombre
-                </option>
-                }
-            </select>
-        </div> *@
+<div>
+    @Html.ActionLink("Inicio", "Index", new { controller = "Home" })
+</div>
+
+@*@Html.ActionLink("Create New", "Create")
+    <h2>Combos en cascada</h2>
+    <div class="form-group">
+        <label>Géneros</label>
+        <select id="generos" class="form-control">
+            @foreach (var item in Model)
+            {
+            <option value="@item.ID">
+                @item.varchNombre
+            </option>
+            }
+        </select>
+    </div> *@

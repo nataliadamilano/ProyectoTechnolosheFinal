@@ -7,11 +7,11 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="varbImagen" Type="varbinary(max)" />
     <Property Name="nvarchImageMimeType" Type="nvarchar(max)" />
-    <Property Name="varchNombre" Type="varchar" MaxLength="80" Nullable="false" />
-    <Property Name="varchPais" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="nvarchNombre" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="nvarchPais" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="intAño" Type="int" Nullable="false" />
     <Property Name="IDGenero" Type="int" Nullable="false" />
-    <Property Name="varchBiografia" Type="varchar(max)" />
+    <Property Name="nvarchBiografia" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Discos">
     <Key>
@@ -20,7 +20,7 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="varbPortada" Type="varbinary(max)" />
     <Property Name="nvarchImageMimeType" Type="nvarchar(max)" />
-    <Property Name="varchNombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="nvarchNombre" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="intAño" Type="int" Nullable="false" />
     <Property Name="IDArtista" Type="int" Nullable="false" />
   </EntityType>
@@ -29,15 +29,16 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="varchNombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="nvarchNombre" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="Pistas">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="varchNombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="nvarchNombre" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="intDuracion" Type="int" />
+    <Property Name="nvarchPath" Type="nvarchar" MaxLength="100" />
     <Property Name="IDDisco" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_Artistas_Generos">

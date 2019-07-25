@@ -33,7 +33,7 @@ namespace Proyecto.Models
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "El nombre del álbum no puede estar vacío.")]
         [DisplayName("Nombre del álbum")]
-        public string varchNombre { get; set; }
+        public string nvarchNombre { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "El año de lanzamiento no puede estar vacío.")]
         [Range(1900, 2019, ErrorMessage = "El año debe estar comprendido entre 1900 y 2019.")]

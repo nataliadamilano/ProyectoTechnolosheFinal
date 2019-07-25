@@ -24,6 +24,7 @@ namespace Proyecto.Models
         }
     
         public int ID { get; set; }
+
         [DisplayName("Foto del artista")]
         public byte[] varbImagen { get; set; }
 
@@ -32,21 +33,23 @@ namespace Proyecto.Models
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "El nombre no puede estar vacío.")]
         [DisplayName("Nombre del artista")]
-        public string varchNombre { get; set; }
+        public string nvarchNombre { get; set; }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "El país no puede estar vacío.")]
         [DisplayName("País")]
-        public string varchPais { get; set; }
+        public string nvarchPais { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "El año no puede estar vacío.")]
         [Range(1900, 2019, ErrorMessage = "El año debe estar comprendido entre 1900 y 2019.")]
         [DisplayName("Año")]
         public int intAño { get; set; }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "El género no puede estar vacío.")]
         [DisplayName("Género")]
         public int IDGenero { get; set; }
 
-        [DisplayName("Biografía del artista")]
-        public string varchBiografia { get; set; }
+        [DisplayName("Biografía")]
+        public string nvarchBiografia { get; set; }
     
         public virtual Genero Genero { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Proyecto.Models.Disco>
+<h2>Últimas Adiciones</h2>
+@* <section id="descubri">
+    <div class="content">
+        @*  <div class="row">
+
+               @foreach (var item in Model)
+                {
+
+                    <div class="col-12 col-xs-3 col-lg-4 col-md-4">
+
+                        <h3>
+                            "@Html.DisplayFor(modelItem => item.varchNombre)"
+                        </h3>
+                    </div>
+                }
+            </div> *@
+
+      @*  <div class="row">
+
+            @foreach (var item in Model)
+            {
+
+                if (item.varbPortada != null)
+                {
+                    <div class="col-12 col-xs-3 col-lg-4 col-md-4">
+
+                        <img src=" @Url.Action("GetImage", "Disco", new { discoID = item.ID }) " />
+                        @* @Html.ActionLink("Details", "Details", new { id = item.ID })
+
+                    </div>
+
+                }
+
+
+            }
+        </div>
+
+    </div>
+</section> *@
+
+
+<div>
+    <div class="row blog">
+        <div class="col-md-12">
+            <div id="blogCarousel" class="carousel slide" data-ride="carousel">
+
+                <ol class="carousel-indicators">
+                    <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#blogCarousel" data-slide-to="1"></li>
+                </ol>
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+
+                    <div class="carousel-item active">
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+
+                                if (item.varbPortada != null)
+                                {
+                                    <div class="col-12 col-xs-3 col-lg-3 col-md-3">
+
+                                        <img src=" @Url.Action("GetImage", "Disco", new { discoID = item.ID })" style="max-width:50%" />
+                                        @* @Html.ActionLink("Details", "Details", new { id = item.ID }) *@
+
+                                    </div>
+
+                                }
+
+
+                            }
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+
+                                if (item.varbPortada != null)
+                                {
+                                    <div class="col-12 col-xs-3 col-lg-3 col-md-3">
+
+                                        <img src=" @Url.Action("GetImage", "Disco", new { discoID = item.ID })" style="max-width:50%" />
+                                        @* @Html.ActionLink("Details", "Details", new { id = item.ID }) *@
+
+                                    </div>
+
+                                }
+
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+</div>
+</div>
+        </div>
+</div>
+

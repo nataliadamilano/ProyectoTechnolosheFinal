@@ -36,24 +36,21 @@ namespace Proyecto.Controllers
             return View(artista);
         }
 
-        // GET: Artista/Create
-        /*  public ActionResult Create()
-          {
-              ViewBag.IDGenero = new SelectList(db.Generos, "ID", "varchNombre");
-              return View();
-          } */
 
         // GET: /Artista/Create
+        [Authorize]
         public ActionResult Create()
         {
             //Crea un nuevo artista
-            Artista nuevoartista = new Artista();
-            ViewBag.IDGenero = new SelectList(db.Generos, "ID", "varchNombre");
-            return View(nuevoartista);
+            //Artista nuevoartista = new Artista();
+            ViewBag.IDGenero = new SelectList(db.Generos, "ID", "nvarchNombre");
+            return View();
         }
 
         //
         // POST: /Artista/Create
+        [Authorize]
+
         [HttpPost]
         public ActionResult Create(Artista artista, HttpPostedFileBase image)
         {
@@ -73,30 +70,14 @@ namespace Proyecto.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IDGenero = new SelectList(db.Generos, "ID", "varchNombre", artista.IDGenero);
+            ViewBag.IDGenero = new SelectList(db.Generos, "ID", "nvarchNombre", artista.IDGenero);
             return View(artista);
         }
 
 
-        // POST: Artista/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
-        /* [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,varbImagen,nvarchImageMimeType,varchNombre,varchPais,intAño,IDGenero,varchBiografia")] Artista artista)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Artistas.Add(artista);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.IDGenero = new SelectList(db.Generos, "ID", "varchNombre", artista.IDGenero);
-            return View(artista);
-        } */
-
         // GET: Artista/Edit/5
+        [Authorize]
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -108,16 +89,16 @@ namespace Proyecto.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IDGenero = new SelectList(db.Generos, "ID", "varchNombre", artista.IDGenero);
+            ViewBag.IDGenero = new SelectList(db.Generos, "ID", "nvarchNombre", artista.IDGenero);
             return View(artista);
         }
 
         // POST: Artista/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,varbImagen,nvarchImageMimeType,varchNombre,varchPais,intAño,IDGenero,varchBiografia")] Artista artista)
+        public ActionResult Edit(Artista artista)
         {
             if (ModelState.IsValid)
             {
@@ -125,11 +106,13 @@ namespace Proyecto.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IDGenero = new SelectList(db.Generos, "ID", "varchNombre", artista.IDGenero);
+            ViewBag.IDGenero = new SelectList(db.Generos, "ID", "nvarchNombre", artista.IDGenero);
             return View(artista);
         }
 
         // GET: Artista/Delete/5
+        [Authorize]
+
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -145,6 +128,7 @@ namespace Proyecto.Controllers
         }
 
         // POST: Artista/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

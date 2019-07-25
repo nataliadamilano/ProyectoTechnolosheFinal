@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d827c9ecbb0b4687b52868d822abf312" Name="Diagram1">
+      <Diagram DiagramId="42f796b9636048289c6273a090d7e134" Name="Diagram1">
         <EntityTypeShape EntityType="ProyectoModel.Artista" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="ProyectoModel.Disco" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ProyectoModel.Genero" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProyectoModel.Pista" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoModel.Pista" Width="1.5" PointX="7.5" PointY="1.375" IsExpanded="true" />
         <AssociationConnector Association="ProyectoModel.FK_Artistas_Generos" ManuallyRouted="false" />
         <AssociationConnector Association="ProyectoModel.FK_Discos_Artistas" ManuallyRouted="false" />
         <AssociationConnector Association="ProyectoModel.FK_Pistas_Discos" ManuallyRouted="false" />

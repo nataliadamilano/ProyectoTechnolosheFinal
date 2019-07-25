@@ -28,6 +28,7 @@ textarea {
 }
 
 @media screen and (min-width:800px) {
+
     .body-content {
         padding: 0;
         margin: 0;
@@ -44,6 +45,13 @@ textarea {
         height: 80px;
     }
 
+    #logo {
+        font-weight: bolder;
+        font-family: 'Pacifico', cursive;
+        font-size: 25px;
+        margin-bottom: 10px;
+    }
+
     div.margen {
         margin: 0 5px 0 5px;
     }
@@ -54,11 +62,6 @@ textarea {
 
     #navbarSearchForm input {
         width: 280px;
-    }
-
-    footer img {
-        width: 40px;
-        height: 40px;
     }
 
     a.nav-link:hover {
@@ -134,7 +137,6 @@ textarea {
     }
 
     h2.descubri {
-        /*color: rgb(180, 33, 33); */
         color: #000000;
         letter-spacing: .1em;
         font-size: 35px;
@@ -167,26 +169,30 @@ textarea {
     }
 
     .ch-img-1 {
-        background-image: url(/Images/clapton.jpg);
-        background-position: center;
+        background-image: url(/Images/TheBeatles.jpg);
+        background-position-x: center;
+        background-position-y: -95px;
         background-size: cover;
     }
 
     .ch-img-2 {
-        background-image: url(/Images/joeyramone.jpg);
-        background-position: center;
+        background-image: url(/Images/DeepPurple.jpg);
+        background-position-x: -2px;
+        background-position-y: 15px;
         background-size: cover;
     }
 
     .ch-img-3 {
-        background-image: url(/Images/hendrix1.jpg);
-        background-position: center;
+        background-image: url(/Images/Ramones.jpg);
+        background-position-y: -20px;
+        background-position-x: 10px;
         background-size: cover;
     }
 
     .ch-img-4 {
-        background-image: url(/Images/FotoJet.jpg);
-        background-position: center;
+        background-image: url(/Images/JudasPriest.jpg);
+        background-position-x: 10px;
+        background-position-y: -20px;
         background-size: cover;
     }
 
@@ -202,12 +208,6 @@ textarea {
         backface-visibility: hidden;
     }
 
-    #logo {
-        font-weight: bolder;
-        font-family: 'Pacifico', cursive;
-        font-size: 25px;
-        margin-bottom: 10px;
-    }
 
     .ch-info h3 > a {
         text-decoration: none;
@@ -276,6 +276,12 @@ textarea {
         height: auto;
     }
 
+    footer img {
+        width: 40px;
+        height: 40px;
+     }
+
+
     div#footeruno {
         margin-top: 60px;
         margin-bottom: 20px;
@@ -302,4 +308,22 @@ textarea {
     div#footer {
         margin-bottom: 30px;
     }
+
+    .blog .carousel-indicators {
+        left: 0;
+        top: auto;
+        bottom: -40px;
+    }
+
+        /* The colour of the indicators */
+        .blog .carousel-indicators li {
+            background: #a3a3a3;
+            border-radius: 50%;
+            width: 8px;
+            height: 8px;
+        }
+
+        .blog .carousel-indicators .active {
+            background: #707070;
+        }
 }

@@ -20,16 +20,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.varbImagen, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.varbImagen, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.varbImagen, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.nvarchImageMimeType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.nvarchImageMimeType, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.nvarchImageMimeType, "", new { @class = "text-danger" })
+                <input class="pic-upload-input" type="file" name="Image">
             </div>
         </div>
 
