@@ -229,6 +229,7 @@
     <Content Include="Images\banner9.jpg" />
     <Content Include="Images\DeepPurple.jpg" />
     <Content Include="Images\facebook.png" />
+    <Content Include="Images\feibu.png" />
     <Content Include="Images\FotoJet.jpg" />
     <Content Include="Images\hendrix1.jpg" />
     <Content Include="Images\instagram.png" />
@@ -236,10 +237,12 @@
     <Content Include="Images\JudasPriest.jpg" />
     <Content Include="Images\MachineHead.jpg" />
     <Content Include="Images\mustaine.jpg" />
+    <Content Include="Images\otro.png" />
     <Content Include="Images\ozzyimg.jpg" />
     <Content Include="Images\Ramones.jpg" />
     <Content Include="Images\ScreamingForV.jpg" />
     <Content Include="Images\TheBeatles.jpg" />
+    <Content Include="Images\tuita.png" />
     <Content Include="Images\twitter.png" />
     <Content Include="Models\Modelo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -251,7 +254,6 @@
       <DependentUpon>Modelo.edmx</DependentUpon>
       <LastGenOutput>Modelo.cs</LastGenOutput>
     </Content>
-    <Content Include="Scripts\Autocompletar.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />

@@ -6,9 +6,8 @@
 
 <main role="main">
     <div class="row">
-        <div id="titulo" class="col-12 col-xs-12 col-lg-12 col-md-12">
-            <h1><span id="spandos">Buscá</span>, <span id="spandos">descubrí</span> y <span id="spandos">disfrutá</span> de la <span id="spanuno">mejor</span> música.</h1>
-            <h2 class="subtitulo">Los <span id="spanuno">mejores</span> artistas.</h2>
+        <div id="titulo" class="col-12 col-xs-12 col-lg-12 col-md-12 d-flex justify-content-start">
+            <h1>Buscá, descubrí y disfrutá de <br /> la mejor música.</h1>
         </div>
     </div>
 </main>
@@ -73,41 +72,7 @@
                     </ul>
                 </div>
             }
-
-                <!-- <div class="col-12 col-xs-3 col-lg-3 col-md-3">
-            <ul class="ch-grid">
-                <li>
-                    <div class="ch-item ch-img-2">
-                        <div class="ch-info">
-                            <h3><a href="#">Punk Rock</a></h3>
-                        </div>
-                    </div>
-                </li>
-            </ul>
         </div>
-        <div class="col-12 col-xs-3 col-lg-3 col-md-3">
-            <ul class="ch-grid">
-                <li>
-                    <div class="ch-item ch-img-3">
-                        <div class="ch-info">
-                            <h3><a href="#">Rock</a></h3>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="col-12 col-xs-3 col-lg-3 col-md-3">
-            <ul class="ch-grid">
-                <li>
-                    <div class="ch-item ch-img-4">
-                        <div class="ch-info">
-                      @*      <h3><a href="@Url.Action("Index", "Disco")" title="List View" class="links">Rock<br>& Roll</a></h3> *@
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div> -->
-            </div> 
         <div class="row">
             <div class="col-12 col-xs-12 col-lg-12 col-md-12">
                 <hr id="segundohr" class="barra">
@@ -115,5 +80,8 @@
         </div>
     </div>
 </section>
-
-@Html.Action("_UltimasAdicionesDiscos", "Disco", new { number = 4 })
+<section id="descubri">
+    <div class="content">
+                @Html.Action("_UltimasAdicionesDiscos", "Disco", new { number = 3 })
+        </div>
+</section>

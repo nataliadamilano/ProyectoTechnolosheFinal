@@ -15,9 +15,13 @@ namespace Proyecto.Controllers
         private ProyectoEntities db = new ProyectoEntities();
 
         // GET: Artista
-        public ActionResult Index()
+        public ActionResult Index(string filtro)
         {
             var artistas = db.Artistas.Include(a => a.Genero);
+            if (filtro != null)
+            {
+                artistas = artistas.Where(f => f.nvarchNombre.Contains(filtro) || f.nvarchPais.Contains(filtro) || f.Genero.nvarchNombre.Contains(filtro));
+            }
             return View(artistas.ToList());
         }
 
