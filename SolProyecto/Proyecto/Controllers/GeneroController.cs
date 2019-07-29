@@ -15,9 +15,15 @@ namespace Proyecto.Controllers
         private ProyectoEntities db = new ProyectoEntities();
 
         // GET: Genero
-       public ActionResult Index()
+       public ActionResult Index(string filtro)
         {
-            return View(db.Generos.ToList());
+            var generos = db.Generos.Include(a => a.Artistas);
+            if (filtro != null)
+            {
+                generos = generos.Where(f => f.nvarchNombre.Contains(filtro));
+            }
+
+            return View(generos.ToList());
         }
 
 
@@ -112,7 +118,7 @@ namespace Proyecto.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult _TraerArtistasPorGenero(int? id)
+        public ActionResult TraerArtistasPorGenero(int? id)
         {
             Genero genero = (from g in db.Generos where g.ID == id select g).FirstOrDefault();
 

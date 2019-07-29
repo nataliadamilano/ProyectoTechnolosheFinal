@@ -1,0 +1,39 @@
+﻿@model Proyecto.Models.Genero
+
+@{
+    ViewBag.Title = "Descubrí - Géneros";
+}
+<!-- En esta vista muestro el método "TraerArtistasPorGenero" del controlador Genero. -->
+    <div class="container-fluid bajar p-0 mt-5 mb-5 pb-5">
+        <div class="row baja2">
+            <div class="col-12">
+                <h2>@Model.nvarchNombre</h2>
+                <div class="cards-list">
+                    @foreach (var item in Model.Artistas)
+                    {
+                        <div id="card-artista" class="card 1">
+                            <div id="card-artista" class="card_image">
+                                <!-- Busco la imagen del artista a partir de su ID -->
+                                @if (item.varbImagen != null)
+                                {
+                                    <div>
+                                        <img src="@Url.Action("GetImage", "Artista", new { artistaID = item.ID })" />
+                                    </div>
+                                }
+                            </div>
+                            <!-- Ingreso a los detalles del Artista a partir de su ID -->
+                            <div class="card_title">
+                                @Html.ActionLink(item.nvarchNombre, "Details", new { controller = "Artista", id = item.ID }, new { @class = "titulo-artista" })
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <!-- Botón para volver al Home -->
+        <div id="btn-volver" class="row">
+            <div class="col-12 pt-5">
+                @Html.ActionLink("Volver", "Index", new { controller = "Home" }, new { @class = "button-gnrl" })
+            </div>
+        </div>
+    </div>

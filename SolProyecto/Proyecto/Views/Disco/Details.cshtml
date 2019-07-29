@@ -1,50 +1,100 @@
 ﻿@model Proyecto.Models.Disco
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles Álbum";
 }
+    <div class="container-fluid">
+        <div class="row baja2">
+            <div class="col-12 mb-3">
+                <h2 id="artista">Álbumes</h2>
+            </div>
+            <div class="col-12 pb-2">
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "button-gnrl" })
+                    @Html.ActionLink("Borrar", "Delete", new { id = Model.ID }, new { @class = "button-gnrl" })
+                    @Html.ActionLink("Agregar Canciones", "Create", new { controller = "Pista" }, new { @class = "button-gnrl" })
+                }
+                @Html.ActionLink("Volver a Álbumes", "Index", null, new { @class = "button-gnrl" })
+                @Html.ActionLink("Volver a "+Model.Artista.nvarchNombre, "Details", new { controller = "Artista",  id = Model.Artista.ID }, new { @class = "button-gnrl" })
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            @if (Model.varbPortada != null)
+            {
+                <div class="container py-3 pl-3 pr-3">
 
-<h2>Details</h2>
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src=" @Url.Action("GetImage", "Disco", new { discoID = Model.ID })" style="max-width:100%; max-height:100%" />
+                                <h4 class="card-title text-left pt-2">@Model.nvarchNombre</h4>
+                                <h5 class="card-title text-left">Año: @Model.intAño</h5>
+                                <a href="https://www.utorrent.com/intl/es/" class="button-gnrl"><img src="~/Images/utorrent.png" style="width:20px; height:20px; margin-right:8px;" />Descargá uTorrent</a>
+                                <input type="button" onclick="LlamarJsonDelServidor();" value="Descargar Álbum" class="button-gnrl" />
+                                <div id="resultado" class="col-12 pl-2">
+                                </div>
+                            </div>
+                            <div class="col-md-8 px-3 pb-2">
+                                <div class="card-block px-3 pt-2">
+                                    <div class="row justify-content-start">
+                                        <div class="col-12 pt-2">
+                                            <div class="card-body">
+                                                <h4 class="card-title text-center">Lista de Canciones</h4>
+                                                @Html.Partial("_TraerPistasporDisco")
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="card-text pt-4 pl-2"></p>
+                                </div>
+                                <div class="row card-body">
 
-<div>
-    <h4>Disco</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.varbPortada)
-        </dt>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-12 pt-3 pb-5">
+                @Html.ActionLink("Inicio", "Index", new { controller = "Home" }, new { @class = "button-gnrl" })
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.varbPortada)
-        </dd>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.nvarchNombre)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.nvarchNombre)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.intAño)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.intAño)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Artista.varbImagen)
-        </dt>
+<!-- SCRIPT PARA BUSCAR LA LISTA DE DESCARGAS DEL CONTROLADOR DISCO -->
 
-        <dd>
-            @Html.DisplayFor(model => model.Artista.varbImagen)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <script>
+    function LlamarJsonDelServidor()
+    {
+        $.ajax
+            ({
+                type: "POST",
+                traditional: true,
+                async: false,
+                cache: false,
+                url: '@Url.Action("LlamarJson")',
+                context: document.body,
+                data: {},
+                success: function (result) {
+                    $("#resultado").html('');
+                    for (var i = 0; i < result.length; i++) {
+                        if (result[i].Disco == "@Model.nvarchNombre") {
+                            $("#resultado").append("<a href=" + result[i].Url + ">" + "Descargar Torrent" + "</a>");
+                        }
+                    }
+                },
+                error: function (xhr) {
+                    //Debugger;
+                    console.log(xhr.responseText);
+                    alert("Hubo un problema...");
+                }
+            });
+    }
+    </script>

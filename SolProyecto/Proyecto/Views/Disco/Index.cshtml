@@ -1,62 +1,92 @@
 ﻿@model IEnumerable<Proyecto.Models.Disco>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Álbumes";
 }
 
-<h2>Index</h2>
-@if (Request.IsAuthenticated && User.IsInRole("Admin"))
-{
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-}
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.varbPortada)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nvarchNombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.intAño)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Artista.nvarchNombre)
-            </th>
-            <th></th>
-        </tr>
+<div class="container-fluid">
+    <div class="row baja2">
+        <div class="col-2 ml-5 mr-4">
+            <h2 class="secciones">Álbumes</h2>
+        </div>
+        @using (Html.BeginForm("Index", "Disco", FormMethod.Get))
+        {
+            <div id="form-buscar" class="row">
+
+                <div class="col-6 col-xs-6 col-lg-6 col-md-6">
+
+                    @Html.TextBox("filtro", null, new { @class = "form-control form-control-sm w-100 search", id = "input-search" })
+                </div>
+                <div class="col-2 col-xs-2 col-lg-2 col-md-2 mr-3 mt-2">
+                    <input type="submit" class="button-gnrl" value="Buscar" />
+                </div>
+                <div class="col-12 col-xs-12 col-lg-2 col-md-2 mt-2 ml-3">
+                    @Html.ActionLink("Todos", "Index", new { controller = "Disco" }, new { @class = "button-todos" })
+                </div>
+
+            </div>
+        }
+        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <div class="row justify-content-start">
+                <div class="col-12 ml-3 mt-2">
+                    @Html.ActionLink("Agregar Álbum", "Create", new { controller = "Disco" }, new { @class = "button-gnrl" })
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="container-fluid bajar pl-5 mt-5 mb-5 pb-5 pr-5">
+    <div class="row">
 
         @foreach (var item in Model)
         {
-    <tr>
-        <td>
-            @if (item.varbPortada != null)
+            if (item.varbPortada != null)
             {
-                <div class="photo-display">
-                    <img class="photo-display-img" src="@Url.Action("GetImage", "Disco", new { discoID = item.ID })" width="150" height="200" />
-                </div>
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nvarchNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.intAño)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Artista.nvarchNombre)
-        </td>
-        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-        {
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </td>
-        }
-        </tr>
-        }
+                <div class="col-12 col-xs-12 col-md-4 col-lg-6 pt-5">
+                    <div class="card mb-2">
+                        <div class="row" id="card-discos">
+                            <div class="col-6">
+                                <img src=" @Url.Action("GetImage", "Disco", new { discoID = item.ID })" style="max-width:100%" />
+                            </div>
+                            <div class="col-12 col-xs-12 col-md-6 col-lg-6">
+                                <div class="row card-body">
+                                    <div class="col-12 d-flex justify-content-center">
+                                        <h4 style="margin-bottom:2px" class="card-title">@item.nvarchNombre</h4>
+                                    </div>
+                                    <div class="col-12">
+                                        <p class="card-text">
+                                            <h6>@item.Artista.nvarchNombre</h6>
+                                        </p>
+                                        <p class="card-text">
+                                            <h6>Año: @item.intAño </h6>
+                                        </p>
+                                        <p class="card-text">
+                                            <h6> Género: @item.Artista.Genero.nvarchNombre </h6>
+                                        </p>
 
-    </table>
+                                    </div>
+                                    <div class="row card-body">
+                                        @Html.ActionLink("Ver Álbum", "Details", new { controller = "Disco", id = item.ID }, new { @class = "button-gnrl" })
+                                        @Html.ActionLink("Ver Artista", "Details", new { controller = "Artista", id = item.Artista.ID }, new { @class = "button-gnrl" })
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            }
+        }
+    </div>
+    <div id="btn-volver" class="row">
+        <div class="col-12 pt-5">
+            @Html.ActionLink("Volver", "Index", new { controller = "Home" }, new { @class = "button-gnrl" })
+        </div>
+    </div>
+</div>

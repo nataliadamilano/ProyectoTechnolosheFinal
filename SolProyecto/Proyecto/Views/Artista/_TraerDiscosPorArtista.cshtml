@@ -1,0 +1,19 @@
+﻿@model Proyecto.Models.Artista
+
+<!-- Vista parcial a partir del método "_TraerDiscosPorArtista" que al obtener el ID de un disco, devuelve sus datos -->
+<div class="row">
+    @foreach (var item in Model.Discos.OrderBy(a => a.intAño))
+    { 
+        <div class="card mr-3 mb-2" style="width:200px;">
+        @* Si existe la portada del disco, la muestra obteniéndola a partir de su ID ---> *@
+            @if (item.varbPortada != null)
+            {
+                <img src="@Url.Action("GetImage", "Disco", new { discoID = item.ID })" height="200" />
+            }
+            @* Muestra un actionlink para ingresar a los detalles del disco *@
+            <div class="card-body text-center">
+                @Html.ActionLink(item.nvarchNombre, "Details", new { controller = "Disco", id = item.ID })
+            </div>
+        </div>
+    }
+</div>

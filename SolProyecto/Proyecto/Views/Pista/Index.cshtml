@@ -1,45 +1,83 @@
 ﻿@model IEnumerable<Proyecto.Models.Pista>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Canciones";
 }
 
-<h2>Index</h2>
+    <div class="container-fluid">
+        <div class="row baja2">
+            <div class="col-2 ml-5 mr-4">
+                <h2 class="secciones">Canciones</h2>
+            </div>
+            @using (Html.BeginForm("Index", "Pista", FormMethod.Get))
+            {
+                <div id="form-buscar" class="row">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nvarchNombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.intDuracion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Disco.nvarchNombre)
-        </th>
-        <th></th>
-    </tr>
+                    <div class="col-6 col-xs-6 col-lg-6 col-md-6">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nvarchNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.intDuracion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Disco.nvarchNombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+                        @Html.TextBox("filtro", null, new { @class = "form-control form-control-sm w-100 search", id = "input-search" })
+                    </div>
+                    <div class="col-2 col-xs-2 col-lg-2 col-md-2 mr-3 mt-2">
+                        <input type="submit" class="button-gnrl" value="Buscar" />
+                    </div>
+                    <div class="col-12 col-xs-12 col-lg-2 col-md-2 mt-2 ml-3">
+                        @Html.ActionLink("Todos", "Index", new { controller = "Pista" }, new { @class = "button-todos" })
+                    </div>
 
-</table>
+                </div>
+            }
+
+            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <div class="col-12 d-flex justify-content-end pb-2">
+                    @Html.ActionLink("Agregar Canción", "Create", new { controller = "Pista" }, new { @class = "button-gnrl" })
+                </div>
+            }
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.nvarchNombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.intDuracion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Disco.nvarchNombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Disco.Artista.nvarchNombre)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.OrderBy(a => a.Disco.Artista.nvarchNombre))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nvarchNombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.intDuracion)
+                        </td>
+                        <td>
+                            @Html.ActionLink(item.Disco.nvarchNombre, "Details", new { controller = "Disco", id = item.Disco.ID })
+                        </td>
+                        <td>
+                           @Html.ActionLink(item.Disco.Artista.nvarchNombre, "Details", new { controller = "Artista", id = item.Disco.Artista.ID })
+                          @*@Html.DisplayFor(modelItem => item.Disco.Artista.nvarchNombre) *@
+                        </td>
+                        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <td>
+                                @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { @class = "button-gnrl" })
+                                @Html.ActionLink("Borrar", "Delete", new { id = item.ID }, new { @class = "button-gnrl" })
+                            </td>
+                        }
+                    </tr>
+                }
+            </table>
+            <div class="col-12 pl-3 pb-5">
+                @Html.ActionLink("Volver", "Index", new { controller = "Home" }, new { @class = "button-gnrl" })
+            </div>
+        </div>
+    </div>

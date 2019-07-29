@@ -1,62 +1,64 @@
 ﻿@model Proyecto.Models.Disco
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Agregar Álbum";
 }
+<div class="container-fluid">
+    <div class="row baja3">
+        <div class="col-12 p-0">
+        <h2>Agregar Álbum</h2>
+            </div>
+        <div class="col-12 p-0 pl-5 pr-5 pb-5">
+        @using (Html.BeginForm("Create", "Disco", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
 
-<h2>Create</h2>
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.varbPortada, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-xs-12 pl-2 pr-2">
+                        <input class="pic-upload-input" type="file" name="Image">
+                    </div>
+                </div>
 
 
-@using (Html.BeginForm("Create", "Disco", FormMethod.Post, new { enctype = "multipart/form-data" })) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Disco</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.varbPortada, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input class="pic-upload-input" type="file" name="Image">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.nvarchNombre, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-xs-12 pl-2 pr-2">
+                        @Html.EditorFor(model => model.nvarchNombre, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.nvarchNombre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.intAño, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-xs-12 pl-2 pr-2">
+                        @Html.EditorFor(model => model.intAño, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.intAño, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IDArtista, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-xs-12 pl-2 pr-2">
+                        @Html.DropDownList("IDArtista", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IDArtista, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12 p-0 pb-5 pl-2">
+                        <input type="submit" value="Agregar" class="button-gnrl" />
+                        @Html.ActionLink("Volver", "Index", new { controller = "Disco" }, new { @class = "button-gnrl" })
+
+                    </div>
+                </div>
+            </div>
+        }
             </div>
         </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.nvarchNombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.nvarchNombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.nvarchNombre, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.intAño, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.intAño, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.intAño, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IDArtista, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IDArtista", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDArtista, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {

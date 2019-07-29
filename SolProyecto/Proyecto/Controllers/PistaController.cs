@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -15,9 +17,14 @@ namespace Proyecto.Controllers
         private ProyectoEntities db = new ProyectoEntities();
 
         // GET: Pista
-        public ActionResult Index()
+        public ActionResult Index(string filtro)
         {
+            var pistasord = db.Pistas.Include(p => p.Disco).OrderBy(a => a.Disco.Artista.nvarchNombre);
             var pistas = db.Pistas.Include(p => p.Disco);
+            if (filtro != null)
+            {
+                pistas = pistas.Where(f => f.nvarchNombre.Contains(filtro) || f.Disco.Artista.nvarchNombre.Contains(filtro) || f.Disco.Artista.Genero.nvarchNombre.Contains(filtro));
+            }
             return View(pistas.ToList());
         }
 
@@ -39,16 +46,15 @@ namespace Proyecto.Controllers
         // GET: Pista/Create
         public ActionResult Create()
         {
-            ViewBag.IDDisco = new SelectList(db.Discos, "ID", "varchNombre");
-            return View();
-        }
+            Pista nuevapista = new Pista();
+            ViewBag.IDDisco = new SelectList(db.Discos, "ID", "nvarchNombre");
+            return View(nuevapista);
+        } 
 
         // POST: Pista/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,varchNombre,intDuracion,IDDisco")] Artista artista, Pista pista)
+        public ActionResult Create(Pista pista)
         {
             if (ModelState.IsValid)
             {
@@ -56,8 +62,7 @@ namespace Proyecto.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IDArtista = new SelectList(db.Artistas, "ID", "varchNombre", artista.ID);
-            ViewBag.IDDisco = new SelectList(db.Discos, "ID", "varchNombre", pista.IDDisco);
+            ViewBag.IDDisco = new SelectList(db.Discos, "ID", "nvarchNombre", pista.IDDisco);
             return View(pista);
         }
 
@@ -73,16 +78,14 @@ namespace Proyecto.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IDDisco = new SelectList(db.Discos, "ID", "varchNombre", pista.IDDisco);
+            ViewBag.IDDisco = new SelectList(db.Discos, "ID", "nvarchNombre", pista.IDDisco);
             return View(pista);
         }
 
         // POST: Pista/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,varchNombre,intDuracion,IDDisco")] Pista pista)
+        public ActionResult Edit(Pista pista)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +93,7 @@ namespace Proyecto.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IDDisco = new SelectList(db.Discos, "ID", "varchNombre", pista.IDDisco);
+            ViewBag.IDDisco = new SelectList(db.Discos, "ID", "nvarchNombre", pista.IDDisco);
             return View(pista);
         }
 

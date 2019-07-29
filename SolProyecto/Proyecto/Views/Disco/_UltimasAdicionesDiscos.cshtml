@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Proyecto.Models.Disco>
+
+<!-- Vista parcial que devuelve todos los álbumes de un artista a partir de su ID -->
+<div class="row">
+    <div class="col-12 col-xs-12 col-lg-12 col-md-12 d-flex justify-content-start">
+        <h2 class="descubri">Últimas adiciones</h2>
+        <hr id="segundohr" class="barra">
+    </div>
+</div>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        if (item.varbPortada != null)
+        {
+            <div class="col-12 col-xs-12 col-md-12 col-lg-4 p-2">
+                <div class="card mb-2 pr-5">
+                    <div class="row" id="card-discos">
+                        <div class="col-6 p-2">
+                            <img src=" @Url.Action("GetImage", "Disco", new { discoID = item.ID })" style="max-width:100%" />
+                        </div>
+                        <div class="col-6 p-2">
+                            <div class="row card-body">
+                                <div class="col-12 d-flex justify-content-start">
+                                    <h4 style="margin-bottom:2px" class="card-title">@item.nvarchNombre</h4>
+                                </div>
+                                <div class="col-12">
+                                    <p class="card-text">
+                                        <h6>@item.Artista.nvarchNombre</h6>
+                                    </p>
+                                    <p class="card-text">
+                                        <h6>Año: @item.intAño </h6>
+                                    </p>
+                                    <p class="card-text">
+                                        <h6> Género: @item.Artista.Genero.nvarchNombre </h6>
+                                    </p>
+
+                                </div>
+                                <div class="row card-body">
+                                    @Html.ActionLink("Ver Álbum", "Details", new { id = item.ID }, new { @class = "button-gnrl" })
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+<div id="btn-volver" class="row">
+    <div class="col-12 pt-5 pr-2 d-flex justify-content-end">
+        @Html.ActionLink("Ver más", "Index", new { controller = "Disco" }, new { @class = "button-gnrl" })
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-xs-12 col-lg-12 col-md-12">
+        <hr id="tercerhr" class="barra">
+    </div>
+</div>

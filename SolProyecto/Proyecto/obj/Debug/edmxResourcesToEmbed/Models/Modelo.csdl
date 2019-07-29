@@ -41,9 +41,8 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="nvarchNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="nvarchNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="intDuracion" Type="Int32" />
-    <Property Name="nvarchPath" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="IDDisco" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Disco" Relationship="Self.FK_Pistas_Discos" FromRole="Pistas" ToRole="Discos" />
   </EntityType>

@@ -15,11 +15,16 @@ namespace Proyecto.Controllers
         private ProyectoEntities db = new ProyectoEntities();
 
         // GET: Disco
-        public ActionResult Index()
+        public ActionResult Index(string filtro)
         {
             var discos = db.Discos.Include(d => d.Artista);
+            if (filtro != null)
+            {
+                discos = discos.Where(f => f.nvarchNombre.Contains(filtro) || f.Artista.nvarchNombre.Contains(filtro) || f.Artista.Genero.nvarchNombre.Contains(filtro));
+            }
             return View(discos.ToList());
         }
+
 
         // GET: Disco/Details/5
         public ActionResult Details(int? id)
@@ -61,7 +66,7 @@ namespace Proyecto.Controllers
                     image.InputStream.Read(disco.varbPortada, 0, image.ContentLength);
                 }
 
-                //Agrego el nuevo artista a la base de datos y guardo.
+                //Agrego el nuevo disco a la base de datos y guardo.
                 db.Discos.Add(disco);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -92,7 +97,7 @@ namespace Proyecto.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,varbPortada,nvarchImageMimeType,nvarchNombre,intAño,IDArtista")] Disco disco)
+        public ActionResult Edit(Disco disco)
         {
             if (ModelState.IsValid)
             {
@@ -127,15 +132,15 @@ namespace Proyecto.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Disco disco = db.Discos.Find(id);
-            db.Discos.Remove(disco);
-            db.SaveChanges();
+                db.Discos.Remove(disco);
+                db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        //Este método obtiene la imagen a partir de un ID de artista que se le pasa
+        //Este método obtiene la imagen a partir de un ID de Disco que se le pasa
         public FileContentResult GetImage(int discoID)
         {
-            //Obtener la foto correspondiente al ID del artista
+            //Obtener la foto correspondiente al ID del disco
             Disco requestedPhoto = db.Discos.FirstOrDefault(p => p.ID == discoID);
             if (requestedPhoto != null)
             {
@@ -149,8 +154,8 @@ namespace Proyecto.Controllers
 
         public ActionResult _UltimasAdicionesDiscos(int number = 0)
         {
-            //We want to display only the latest photos when a positive integer is supplied to the view.
-            //Otherwise we'll display them all
+            //Quiero mostrar solo los últimos discos que subí a partir de un int number que me pasan.
+            //Sino muestro todos...
             List<Disco> discos;
 
             if (number == 0)
@@ -167,6 +172,35 @@ namespace Proyecto.Controllers
             return PartialView("_UltimasAdicionesDiscos", discos);
         }
 
+        public ActionResult _TraerPistasporDisco(int? id)
+        {
+            Disco disco = (from d in db.Discos where d.ID == id select d).FirstOrDefault();
+
+            if (disco == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_TraerPistasporDisco", disco);
+        }
+
+        public JsonResult LlamarJson()
+        {
+            var output = ObtenerListaDiscos();
+            return Json(output, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<DescargaDisco> ObtenerListaDiscos()
+        {
+            List<DescargaDisco> lDescargas = new List<DescargaDisco>(){
+            new DescargaDisco(){ Disco = "Screaming for Vengeance", Url = "magnet:?xt=urn:btih:2adff61c51650145d80b2ec7e6ea2a4fabc0b9a8&dn=Judas+Priest+-+1982+-+Screaming+For+Vengeance+%5Bmp3%2C+CBR%2C+320kbps&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969"},
+            new DescargaDisco(){ Disco = "Animal Boy", Url = "magnet:?xt=urn:btih:7af372d6d5508609dee3324f16f3174d278ba3b4&dn=10+Ramones-Animal_Boy-1986-rH_INT&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969"},
+            new DescargaDisco(){ Disco = "Road To Ruin", Url = "magnet:?xt=urn:btih:6d1bf8ec501ba9daa0489c92c2ca4d13a13673d6&dn=Ramones+-+Road+To+Ruin+%281978%29+%5BEAC-FLAC%5D+The+Sire+Years+%282013%29+&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969"},
+            new DescargaDisco(){ Disco = "Abbey Road", Url = "magnet:?xt=urn:btih:eea2f846ea8f23d774a28136265da1e1508cf8c7&dn=The+Beatles+-+Abbey+Road+%5B320k+MP3%5D&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969"}, 
+            new DescargaDisco(){ Disco = "Defenders Of The Faith", Url = "magnet:?xt=urn:btih:0962efe7587b9282984030b3040ec056b5316172&dn=Judas+Priest+-+1984+-+Defenders+of+the+Faith+%5B320kbs%5D+%7E%7ERenovati&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" },
+            new DescargaDisco(){ Disco = "Machine Head", Url = "magnet:?xt=urn:btih:c3a6b8c218329f757622a7726be4d12c2941ffa1&dn=Deep+Purple+-+Machine+Head+%281972%29+%40+320kbps&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" }
+        }; 
+            return lDescargas;
+        }
 
         protected override void Dispose(bool disposing)
         {

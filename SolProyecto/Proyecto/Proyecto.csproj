@@ -185,6 +185,7 @@
     <Compile Include="Models\Artista.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DescargaDisco.cs" />
     <Compile Include="Models\Disco.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -228,7 +229,8 @@
     <Content Include="Images\AnimalBoy.jpg" />
     <Content Include="Images\banner9.jpg" />
     <Content Include="Images\DeepPurple.jpg" />
-    <Content Include="Images\facebook.png" />
+    <Content Include="Images\DefendersOfTF.jpg" />
+    <Content Include="Images\ElectricLadyLand.jpg" />
     <Content Include="Images\feibu.png" />
     <Content Include="Images\FotoJet.jpg" />
     <Content Include="Images\hendrix1.jpg" />
@@ -237,13 +239,13 @@
     <Content Include="Images\JudasPriest.jpg" />
     <Content Include="Images\MachineHead.jpg" />
     <Content Include="Images\mustaine.jpg" />
-    <Content Include="Images\otro.png" />
     <Content Include="Images\ozzyimg.jpg" />
     <Content Include="Images\Ramones.jpg" />
+    <Content Include="Images\RoadToRuin.jpg" />
     <Content Include="Images\ScreamingForV.jpg" />
     <Content Include="Images\TheBeatles.jpg" />
     <Content Include="Images\tuita.png" />
-    <Content Include="Images\twitter.png" />
+    <Content Include="Images\utorrent.png" />
     <Content Include="Models\Modelo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Modelo.edmx</DependentUpon>
@@ -365,11 +367,10 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Shared\_UltimasAdiciones.cshtml" />
-    <Content Include="Views\Artista\TraerDiscosporArtista.cshtml" />
-    <Content Include="Views\Home\_TraerArtistasPorGenero.cshtml" />
-    <Content Include="Views\Genero\_TraerArtistasPorGenero.cshtml" />
-    <Content Include="Views\Shared\_UltimasAdicionesDiscos.cshtml" />
+    <Content Include="Views\Genero\TraerArtistasPorGenero.cshtml" />
+    <Content Include="Views\Disco\_UltimasAdicionesDiscos.cshtml" />
+    <Content Include="Views\Artista\_TraerDiscosPorArtista.cshtml" />
+    <Content Include="Views\Disco\_TraerPistasporDisco.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

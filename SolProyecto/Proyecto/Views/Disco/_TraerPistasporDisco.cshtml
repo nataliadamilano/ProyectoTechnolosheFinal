@@ -1,0 +1,9 @@
+﻿@model Proyecto.Models.Disco
+@{int i = 1;}
+<ol class="list-group list-group-flush">
+    @foreach (var item in Model.Pistas)
+    {
+        <li class="list-group-item">@i - <b>@Html.DisplayFor(modelItem => item.nvarchNombre)</b> | @Html.DisplayFor(modelItem => item.intDuracion) min</li>
+        i++;
+    }
+</ol>

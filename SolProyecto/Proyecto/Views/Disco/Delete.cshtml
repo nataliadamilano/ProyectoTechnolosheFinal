@@ -1,56 +1,70 @@
 ﻿@model Proyecto.Models.Disco
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Borrar Álbum";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Disco</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.varbPortada)
-        </dt>
-
-        <dd>
-            <img class="photo-display-img" src="@Url.Action("GetImage", "Disco", new { discoID = Model.ID })" width="150" height="200" />
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.nvarchNombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.nvarchNombre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.intAño)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.intAño)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Artista.varbImagen)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Artista.varbImagen)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+<div class="container-fluid">
+    <div class="row baja2">
+        <div class="col-12">
+            <h3>¿Estás seguro de que querés borrar el álbum: @Model.nvarchNombre?</h3>
         </div>
-    }
+        <div class="col-12">
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.varbPortada)
+                </dt>
+
+                <dd>
+                    <img src="@Url.Action("GetImage", "Disco", new { discoID = Model.ID })" width="150" height="200" />
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.nvarchNombre)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.nvarchNombre)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.intAño)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.intAño)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Artista.varbImagen)
+                </dt>
+
+                <dd>
+                    <img src="@Url.Action("GetImage", "Artista", new { artistaID = Model.Artista.ID })" width="150" height="200" />
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-actions no-color">
+                    <input type="submit" onclick="return  DeleteWarning()" value="Borrar" class="button-gnrl" />
+                    @Html.ActionLink("Volver", "Details", new { controller = "Disco", id = Model.ID }, new { @class = "button-gnrl" })
+                </div>
+            }
+        </div>
+    </div>
 </div>
+
+
+
+<script type="text/javascript">
+        function DeleteWarning() {
+            if (confirm("Para eliminar este registro primero debe de eliminar las canciones relacionadas."))
+                return true;
+            else
+                return false;
+        }
+</script>

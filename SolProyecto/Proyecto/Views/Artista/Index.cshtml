@@ -1,86 +1,71 @@
 ﻿@model IEnumerable<Proyecto.Models.Artista>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Artistas";
 }
-<h2>Index</h2>
-@if (Request.IsAuthenticated && User.IsInRole("Admin"))
-{
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-}
-@using (Html.BeginForm("Index", "Artista", FormMethod.Get))
-{
-    @Html.TextBox("filtro")
-    <input type="submit" />
-}
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.varbImagen)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nvarchNombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nvarchPais)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.intAño)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nvarchBiografia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Genero.nvarchNombre)
-        </th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @if (item.varbImagen != null)
+
+<div class="container-fluid">
+    <div class="row baja2">
+        <div class="col-2 ml-5 mr-4">
+            <h2 class="secciones">Artistas</h2>
+        </div>
+        <!-- Formulario para buscar Artistas -->
+        @using (Html.BeginForm("Index", "Artista", FormMethod.Get))
+        {
+            <div id="form-buscar" class="row">
+                <div class="col-6 col-xs-6 col-lg-6 col-md-6">
+                    @Html.TextBox("filtro", null, new { @class = "form-control form-control-sm w-100 search", id = "input-search" })
+                </div>
+                <div class="col-2 col-xs-2 col-lg-2 col-md-2 mr-3 mt-2">
+                    <input type="submit" class="button-gnrl" value="Buscar" />
+                </div>
+                <div class="col-12 col-xs-12 col-lg-2 col-md-2 mt-2 ml-3">
+                    @Html.ActionLink("Todos", "Index", new { controller = "Artista" }, new { @class = "button-todos" })
+                </div>
+            </div>
+        }
+        <!-- Si el usuario está logueado como Admin, podrá agregar un Artista -->
+        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <div class="row justify-content-start">
+                <div class="col-12 mt-2 ml-3">
+                    @Html.ActionLink("Agregar Artista", "Create", new { controller = "Artista" }, new { @class = "button-gnrl" })
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="container-fluid p-0 mt-5 mb-5 pb-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="cards-list">
+                <!-- Agrego la lista de Artistas -->
+                @foreach (var item in Model)
                 {
-                    <div class="photo-display">
-                        <img class="photo-display-img" src="@Url.Action("GetImage", "Artista", new { artistaID = item.ID })" width="150" height="200" />
+                    <div id="card-artista" class="card 1">
+                        <div id="card-artista" class="card_image">
+                            @if (item.varbImagen != null)
+                            {
+                                <div>
+                                    <img src="@Url.Action("GetImage", "Artista", new { artistaID = item.ID })" />
+                                </div>
+                            }
+                        </div>
+                        <!-- En cada item de Artista, el usuario podrá ingresar a los detalles del artista -->
+                        <div class="card_title">
+                            @Html.ActionLink(item.nvarchNombre, "Details", new { controller = "Artista", id = item.ID }, new { @class = "titulo-artista" })
+                        </div>
                     </div>
                 }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nvarchNombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nvarchPais)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.intAño)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nvarchBiografia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genero.nvarchNombre)
-            </td>
-            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-            {
-                <td>
-                    @Html.ActionLink("Ver Discos", "TraerDiscosporArtista", new { id = item.ID })
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                </td>
-            }
-        </tr>
-    }
-
-
-</table>
-
-
-
-<div>
-    @Html.ActionLink("Inicio", "Index", new { controller = "Home" })
+            </div>
+        </div>
+    </div>
+    <!-- Botón para volver al Home -->
+    <div id="btn-volver" class="row">
+        <div class="col-12 d-flex justify-content-start mt-5 pl-5">
+            @Html.ActionLink("Inicio", "Index", new { controller = "Home" }, new { @class = "button-gnrl" })
+        </div>
+    </div>
 </div>
 
 

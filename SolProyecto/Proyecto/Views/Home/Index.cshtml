@@ -2,56 +2,55 @@
 @{
     ViewBag.Title = "Home Page";
 }
+    <main role="main">
+        <div class="row">
+            <div id="titulo" class="col-12 col-xs-12 col-lg-12 col-md-12 ml-2 d-flex justify-content-start">
+                <h1>Buscá, descubrí y disfrutá de <br /> la mejor música.</h1>
+            </div>
 
-
-<main role="main">
-    <div class="row">
-        <div id="titulo" class="col-12 col-xs-12 col-lg-12 col-md-12 d-flex justify-content-start">
-            <h1>Buscá, descubrí y disfrutá de <br /> la mejor música.</h1>
         </div>
-    </div>
-</main>
+    </main>
 
 <section id="descubri">
-    <div class="content">
-        <div class="row">
-            <div class="col-12 col-xs-12 col-lg-12 col-md-12">
-                <h2 class="descubri">Descubrí.</h2>
-                <hr id="primerhr" class="barra">
-            </div>
+    <div class="row">
+        <div class="col-12 col-xs-12 col-lg-12 col-md-12">
+            <h2 class="descubri">Descubrí</h2>
+            <hr id="firsthr" class="barra">
         </div>
-        <div class="row">
+    </div>
+    <div class="container-fluid pr-2">
+        <div class="row pr-5">
             @foreach (var item in Model.OrderBy(g => g.ID))
             {
-                <div class="col-12 col-xs-3 col-lg-3 col-md-3">
-                    <ul class="ch-grid">
+                <div class="col-12 col-xs-12 col-lg-3 col-md-6">
+                    <ul class="g-grid">
                         <li>
                             @if (item.ID == 5)
                             {
-                                <div class="ch-item ch-img-1">
-                                    <div class="ch-info">
+                                <div class="g-item g-img-1">
+                                    <div class="g-info">
                                         <h3>
-                                            @Html.ActionLink(item.nvarchNombre, "_TraerArtistasPorGenero", new { id = item.ID })
+                                            @Html.ActionLink(item.nvarchNombre, "TraerArtistasPorGenero", new { controller = "Genero", id = item.ID })
                                         </h3>
                                     </div>
                                 </div>
                             }
                             else if (item.ID == 6)
                             {
-                                <div class="ch-item ch-img-2">
-                                    <div class="ch-info">
+                                <div class="g-item g-img-2">
+                                    <div class="g-info">
                                         <h3>
-                                            @Html.ActionLink(item.nvarchNombre, "_TraerArtistasPorGenero", new { id = item.ID })
+                                            @Html.ActionLink(item.nvarchNombre, "TraerArtistasPorGenero", new { controller = "Genero", id = item.ID })
                                         </h3>
                                     </div>
                                 </div>
                             }
                             else if (item.ID == 7)
                             {
-                                <div class="ch-item ch-img-3">
-                                    <div class="ch-info">
+                                <div class="g-item g-img-3">
+                                    <div class="g-info">
                                         <h3>
-                                            @Html.ActionLink(item.nvarchNombre, "_TraerArtistasPorGenero", new { id = item.ID })
+                                            @Html.ActionLink(item.nvarchNombre, "TraerArtistasPorGenero", new { controller = "Genero", id = item.ID })
                                         </h3>
                                     </div>
                                 </div>
@@ -59,10 +58,10 @@
                             }
                             else if (item.ID == 8)
                             {
-                                <div class="ch-item ch-img-4">
-                                    <div class="ch-info">
+                                <div class="g-item g-img-4">
+                                    <div class="g-info">
                                         <h3>
-                                            @Html.ActionLink(item.nvarchNombre, "_TraerArtistasPorGenero", new { id = item.ID })
+                                            @Html.ActionLink(item.nvarchNombre, "TraerArtistasPorGenero", new { controller = "Genero", id = item.ID })
                                         </h3>
                                     </div>
                                 </div>
@@ -73,15 +72,13 @@
                 </div>
             }
         </div>
-        <div class="row">
-            <div class="col-12 col-xs-12 col-lg-12 col-md-12">
-                <hr id="segundohr" class="barra">
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-xs-12 col-lg-12 col-md-12">
+            <hr id="secondhr" class="barra">
         </div>
     </div>
 </section>
 <section id="descubri">
-    <div class="content">
-                @Html.Action("_UltimasAdicionesDiscos", "Disco", new { number = 3 })
-        </div>
+    @Html.Action("_UltimasAdicionesDiscos", "Disco", new { number = 3 })
 </section>

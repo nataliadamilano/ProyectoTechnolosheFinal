@@ -1,58 +1,60 @@
 ﻿@model IEnumerable<Proyecto.Models.Genero>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Géneros";
 }
-
-<h2>Index</h2>
 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
 {
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+    <div class="container-fluid">
+        <div class="row baja2">
+            <div class="col-2 ml-5 mr-4">
+                <h2 class="secciones">Géneros</h2>
+            </div>
+            @using (Html.BeginForm("Index", "Genero", FormMethod.Get))
+            {
+                <div id="form-buscar" class="row">
+
+                    <div class="col-6 col-xs-6 col-lg-6 col-md-6">
+
+                        @Html.TextBox("filtro", null, new { @class = "form-control form-control-sm w-100 search", id = "input-search" })
+                    </div>
+                    <div class="col-2 col-xs-2 col-lg-2 col-md-2 mr-3 mt-2">
+                        <input type="submit" class="button-gnrl" value="Buscar" />
+                    </div>
+                    <div class="col-12 col-xs-12 col-lg-2 col-md-2 mt-2 ml-3">
+                        @Html.ActionLink("Todos", "Index", new { controller = "Genero" }, new { @class = "button-todos" })
+                    </div>
+
+                </div>
+            }
+
+                <div class="row justify-content-start">
+                    <div class="col-12 ml-3 mt-2 mb-2">
+                        @Html.ActionLink("Agregar Género", "Create", new { controller = "Genero" }, new { @class = "button-gnrl" })
+                    </div>
+                </div>
+            <table class="table">
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="d-flex justify-content-start">
+                            @Html.DisplayFor(modelItem => item.nvarchNombre)
+                        </td>
+                        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <td>
+                                @Html.ActionLink("Ver Artistas", "TraerArtistasPorGenero", new { id = item.ID }, new { @class = "button-gnrl" })
+                                @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { @class = "button-gnrl" })
+                                @Html.ActionLink("Borrar", "Delete", new { id = item.ID }, new { @class = "button-gnrl" })
+                            </td>
+                        }
+                    </tr>
+                }
+            </table>
+            <div class="col-12 pl-3 pb-5">
+                @Html.ActionLink("Inicio", "Index", new { controller = "Home" }, new { @class = "button-gnrl" })
+            </div>
+        </div>
+    </div>
 }
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nvarchNombre)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.nvarchNombre)
-            </td>
-            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-            {
-                <td>
-                    @Html.ActionLink("Ver Artistas", "_TraerArtistasPorGenero", new { id = item.ID })
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                </td>
-            }
-        </tr>
-    }
-
-</table>
-
-<div>
-    @Html.ActionLink("Inicio", "Index", new { controller = "Home" })
-</div>
-
-@*@Html.ActionLink("Create New", "Create")
-    <h2>Combos en cascada</h2>
-    <div class="form-group">
-        <label>Géneros</label>
-        <select id="generos" class="form-control">
-            @foreach (var item in Model)
-            {
-            <option value="@item.ID">
-                @item.varchNombre
-            </option>
-            }
-        </select>
-    </div> *@

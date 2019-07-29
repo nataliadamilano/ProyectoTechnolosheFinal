@@ -22,7 +22,7 @@ namespace Proyecto.Models
         {
             this.Discos = new HashSet<Disco>();
         }
-    
+
         public int ID { get; set; }
 
         [DisplayName("Foto del artista")]
@@ -48,6 +48,7 @@ namespace Proyecto.Models
         [DisplayName("Género")]
         public int IDGenero { get; set; }
 
+        [DataType(DataType.MultilineText)]
         [DisplayName("Biografía")]
         public string nvarchBiografia { get; set; }
     

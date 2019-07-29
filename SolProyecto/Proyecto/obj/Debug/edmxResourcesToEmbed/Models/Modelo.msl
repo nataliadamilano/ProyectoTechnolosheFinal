@@ -41,7 +41,6 @@
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="nvarchNombre" ColumnName="nvarchNombre" />
           <ScalarProperty Name="intDuracion" ColumnName="intDuracion" />
-          <ScalarProperty Name="nvarchPath" ColumnName="nvarchPath" />
           <ScalarProperty Name="IDDisco" ColumnName="IDDisco" />
         </MappingFragment>
       </EntityTypeMapping>
