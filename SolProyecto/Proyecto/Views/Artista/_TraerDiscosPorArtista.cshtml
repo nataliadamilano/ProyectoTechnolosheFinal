@@ -8,11 +8,11 @@
         @* Si existe la portada del disco, la muestra obteniéndola a partir de su ID ---> *@
             @if (item.varbPortada != null)
             {
-                <img src="@Url.Action("GetImage", "Disco", new { discoID = item.ID })" height="200" />
+                <a href="@Url.Action("Details", "Disco", new { id = item.ID })"><img src="@Url.Action("GetImage", "Disco", new { discoID = item.ID })" height="200" /></a>
             }
-            @* Muestra un actionlink para ingresar a los detalles del disco *@
+            @* Genero link para ingresar a los detalles del disco *@
             <div class="card-body text-center">
-                @Html.ActionLink(item.nvarchNombre, "Details", new { controller = "Disco", id = item.ID })
+                @Html.ActionLink(item.nvarchNombre + " (" + item.intAño + ")", "Details", new { controller = "Disco", id = item.ID })
             </div>
         </div>
     }

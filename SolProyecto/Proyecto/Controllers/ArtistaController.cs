@@ -26,7 +26,7 @@ namespace Proyecto.Controllers
             return View(artistas.ToList());
         }
 
-        // GET: Artista/Details/5
+        // GET: Artista/Details
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -77,7 +77,7 @@ namespace Proyecto.Controllers
         }
 
 
-        // GET: Artista/Edit/5
+        // GET: Artista/Edit
         [Authorize]
 
         public ActionResult Edit(int? id)
@@ -95,7 +95,7 @@ namespace Proyecto.Controllers
             return View(artista);
         }
 
-        // POST: Artista/Edit/5
+        // POST: Artista/Edit
         [Authorize]
 
         [HttpPost]
@@ -120,7 +120,7 @@ namespace Proyecto.Controllers
         }
 
 
-        // GET: Artista/Delete/5
+        // GET: Artista/Delete
         [Authorize]
         public ActionResult Delete(int? id)
         {
@@ -136,28 +136,26 @@ namespace Proyecto.Controllers
             return View(artista);
         }
 
-        // POST: Artista/Delete/5
+        // POST: Artista/Delete
         [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Artista artista = db.Artistas.Find(id);
+            //var discos = artista.Discos;
+            //if (discos != null)
+            //{
+                //DiscoController ctl = new DiscoController();
+                //ActionResult action = ctl.DeleteConfirmed(id);
+                //db.Discos.RemoveRange(discos);
+                //return action;
+            //}
             db.Artistas.Remove(artista);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        public ActionResult _TraerDiscosporArtista (int? id)
-        {
-            Artista artista = (from a in db.Artistas where a.ID == id select a).FirstOrDefault();
-
-            if (artista == null)
-            {
-                return HttpNotFound();
-            }
-            return PartialView("_TraerDiscosporArtista", artista);
-        }
 
         //Este método obtiene la imagen a partir de un ID de artista que se le pasa
         public FileContentResult GetImage(int artistaID)
@@ -174,6 +172,18 @@ namespace Proyecto.Controllers
             }
         }
 
+        //A partir de obtener el ID de un artista, relaciono éste con Discos para traer una colección
+        // de los mismos en una vista parcial llamada "_TraerDiscosporArtista".
+        public ActionResult _TraerDiscosporArtista(int? id)
+        {
+            Artista artista = (from a in db.Artistas where a.ID == id select a).FirstOrDefault();
+
+            if (artista == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_TraerDiscosporArtista", artista);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

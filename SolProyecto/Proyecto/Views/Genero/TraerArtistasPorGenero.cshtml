@@ -16,9 +16,9 @@
                                 <!-- Busco la imagen del artista a partir de su ID -->
                                 @if (item.varbImagen != null)
                                 {
-                                    <div>
-                                        <img src="@Url.Action("GetImage", "Artista", new { artistaID = item.ID })" />
-                                    </div>
+                                <div>
+                                    <a href='@Url.Action("Details", "Artista", new { id = item.ID })'><img src="@Url.Action("GetImage", "Artista", new { artistaID = item.ID })" /></a>
+                                </div>
                                 }
                             </div>
                             <!-- Ingreso a los detalles del Artista a partir de su ID -->

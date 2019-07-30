@@ -9,11 +9,12 @@
         <div class="col-2 ml-5 mr-4">
             <h2 class="secciones">Artistas</h2>
         </div>
-        <!-- Formulario para buscar Artistas -->
+        <!-- Formulario para el método de búsqueda por filtro de Index -->
         @using (Html.BeginForm("Index", "Artista", FormMethod.Get))
         {
             <div id="form-buscar" class="row">
                 <div class="col-6 col-xs-6 col-lg-6 col-md-6">
+                    <!-- Al TextBox le paso como ID el parámetro "filtro" para poder filtrar. -->
                     @Html.TextBox("filtro", null, new { @class = "form-control form-control-sm w-100 search", id = "input-search" })
                 </div>
                 <div class="col-2 col-xs-2 col-lg-2 col-md-2 mr-3 mt-2">
@@ -47,13 +48,13 @@
                             @if (item.varbImagen != null)
                             {
                                 <div>
-                                    <img src="@Url.Action("GetImage", "Artista", new { artistaID = item.ID })" />
+                                    <a href='@Url.Action("Details", "Artista", new { id = item.ID })'><img src="@Url.Action("GetImage", "Artista", new { artistaID = item.ID })" /></a>
                                 </div>
                             }
                         </div>
                         <!-- En cada item de Artista, el usuario podrá ingresar a los detalles del artista -->
                         <div class="card_title">
-                            @Html.ActionLink(item.nvarchNombre, "Details", new { controller = "Artista", id = item.ID }, new { @class = "titulo-artista" })
+                            @Html.ActionLink(@item.nvarchNombre, "Details", new { id = item.ID }, new { @class = "titulo-artista" })
                         </div>
                     </div>
                 }

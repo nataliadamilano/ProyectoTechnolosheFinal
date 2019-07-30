@@ -26,7 +26,7 @@ namespace Proyecto.Controllers
         }
 
 
-        // GET: Disco/Details/5
+        // GET: Disco/Details
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -76,7 +76,7 @@ namespace Proyecto.Controllers
             return View(disco);
         }
 
-        // GET: Disco/Edit/5
+        // GET: Disco/Edit
         [Authorize]
         public ActionResult Edit(int? id)
         {
@@ -93,7 +93,7 @@ namespace Proyecto.Controllers
             return View(disco);
         }
 
-        // POST: Disco/Edit/5
+        // POST: Disco/Edit
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -109,7 +109,7 @@ namespace Proyecto.Controllers
             return View(disco);
         }
 
-        // GET: Disco/Delete/5
+        // GET: Disco/Delete
         [Authorize]
         public ActionResult Delete(int? id)
         {
@@ -125,15 +125,22 @@ namespace Proyecto.Controllers
             return View(disco);
         }
 
-        // POST: Disco/Delete/5
+        // POST: Disco/Delete
         [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Disco disco = db.Discos.Find(id);
-                db.Discos.Remove(disco);
-                db.SaveChanges();
+            //Creo una variable para obtener la colección de pistas relacionadas a cada álbum
+            var pistas = disco.Pistas;
+            //Si existe una colección de pistas pertenecientes a un álbum, la elimino
+            if (pistas != null)
+            {
+                db.Pistas.RemoveRange(pistas);
+            }
+            db.Discos.Remove(disco);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -172,6 +179,8 @@ namespace Proyecto.Controllers
             return PartialView("_UltimasAdicionesDiscos", discos);
         }
 
+        //A partir de obtener el ID de un disco, relaciono éste con Pistas para traer una colección
+        // de las mismas en una vista parcial llamada "_TraerPistasporDisco".
         public ActionResult _TraerPistasporDisco(int? id)
         {
             Disco disco = (from d in db.Discos where d.ID == id select d).FirstOrDefault();
@@ -183,21 +192,30 @@ namespace Proyecto.Controllers
             return PartialView("_TraerPistasporDisco", disco);
         }
 
+        //Método que utiliza un tipo de clase JsonResult para llamar un archivo json, en este caso
+        // la lista de DescargaDisco que generé..
         public JsonResult LlamarJson()
         {
-            var output = ObtenerListaDiscos();
-            return Json(output, JsonRequestBehavior.AllowGet);
+            var lista = ObtenerListaDiscos();
+            return Json(lista, JsonRequestBehavior.AllowGet);
         }
 
+        //Lista DescargaDisco que genero internamente para asociar cada link torrent a su 
+        // correspondiente álbum
         private List<DescargaDisco> ObtenerListaDiscos()
         {
             List<DescargaDisco> lDescargas = new List<DescargaDisco>(){
             new DescargaDisco(){ Disco = "Screaming for Vengeance", Url = "magnet:?xt=urn:btih:2adff61c51650145d80b2ec7e6ea2a4fabc0b9a8&dn=Judas+Priest+-+1982+-+Screaming+For+Vengeance+%5Bmp3%2C+CBR%2C+320kbps&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969"},
             new DescargaDisco(){ Disco = "Animal Boy", Url = "magnet:?xt=urn:btih:7af372d6d5508609dee3324f16f3174d278ba3b4&dn=10+Ramones-Animal_Boy-1986-rH_INT&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969"},
             new DescargaDisco(){ Disco = "Road To Ruin", Url = "magnet:?xt=urn:btih:6d1bf8ec501ba9daa0489c92c2ca4d13a13673d6&dn=Ramones+-+Road+To+Ruin+%281978%29+%5BEAC-FLAC%5D+The+Sire+Years+%282013%29+&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969"},
-            new DescargaDisco(){ Disco = "Abbey Road", Url = "magnet:?xt=urn:btih:eea2f846ea8f23d774a28136265da1e1508cf8c7&dn=The+Beatles+-+Abbey+Road+%5B320k+MP3%5D&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969"}, 
+            new DescargaDisco(){ Disco = "Abbey Road", Url = "magnet:?xt=urn:btih:eea2f846ea8f23d774a28136265da1e1508cf8c7&dn=The+Beatles+-+Abbey+Road+%5B320k+MP3%5D&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969"},
+            new DescargaDisco(){ Disco = "", Url = "magnet:?xt=urn:btih:c3a6b8c218329f757622a7726be4d12c2941ffa1&dn=Deep+Purple+-+Machine+Head+%281972%29+%40+320kbps&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" },
             new DescargaDisco(){ Disco = "Defenders Of The Faith", Url = "magnet:?xt=urn:btih:0962efe7587b9282984030b3040ec056b5316172&dn=Judas+Priest+-+1984+-+Defenders+of+the+Faith+%5B320kbs%5D+%7E%7ERenovati&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" },
-            new DescargaDisco(){ Disco = "Machine Head", Url = "magnet:?xt=urn:btih:c3a6b8c218329f757622a7726be4d12c2941ffa1&dn=Deep+Purple+-+Machine+Head+%281972%29+%40+320kbps&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" }
+            new DescargaDisco(){ Disco = "Machine Head", Url = "magnet:?xt=urn:btih:c3a6b8c218329f757622a7726be4d12c2941ffa1&dn=Deep+Purple+-+Machine+Head+%281972%29+%40+320kbps&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" },
+            new DescargaDisco(){ Disco = "Fireball", Url = "magnet:?xt=urn:btih:c3a6b8c218329f757622a7726be4d12c2941ffa1&dn=Deep+Purple+-+Machine+Head+%281972%29+%40+320kbps&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" },
+            new DescargaDisco(){ Disco = "Isle of Wight", Url = "magnet:?xt=urn:btih:c3a6b8c218329f757622a7726be4d12c2941ffa1&dn=Deep+Purple+-+Machine+Head+%281972%29+%40+320kbps&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" },
+            new DescargaDisco(){ Disco = "Electric Ladyland", Url = "magnet:?xt=urn:btih:c3a6b8c218329f757622a7726be4d12c2941ffa1&dn=Deep+Purple+-+Machine+Head+%281972%29+%40+320kbps&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" }
+
         }; 
             return lDescargas;
         }

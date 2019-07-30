@@ -67,10 +67,19 @@
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-actions no-color">
-                        <input type="submit" value="Borrar" class="button-gnrl" /> 
+                        <input type="submit" onclick="return DeleteWarning()" value="Borrar" class="button-gnrl" /> 
                         @Html.ActionLink("Volver", "Details", new { controller = "Artista", id = Model.ID }, new { @class = "button-gnrl" })
                     </div>
                 }
             </div>
         </div>
     </div>
+
+<script type="text/javascript">
+        function DeleteWarning() {
+            if (confirm("Si borra este registro estará borrando todas las relaciones dependientes de él, ¿desea continuar de todas formas?"))
+                return true;
+            else
+                return false;
+        }
+</script>

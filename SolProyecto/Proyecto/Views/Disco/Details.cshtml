@@ -23,16 +23,15 @@
             @if (Model.varbPortada != null)
             {
                 <div class="container py-3 pl-3 pr-3">
-
                     <div class="card">
                         <div class="row">
                             <div class="col-md-4">
                                 <img src=" @Url.Action("GetImage", "Disco", new { discoID = Model.ID })" style="max-width:100%; max-height:100%" />
                                 <h4 class="card-title text-left pt-2">@Model.nvarchNombre</h4>
                                 <h5 class="card-title text-left">Año: @Model.intAño</h5>
-                                <a href="https://www.utorrent.com/intl/es/" class="button-gnrl"><img src="~/Images/utorrent.png" style="width:20px; height:20px; margin-right:8px;" />Descargá uTorrent</a>
+                                <a href="https://www.utorrent.com/intl/es/" target="_blank" class="button-gnrl"><img src="~/Images/utorrent.png" style="width:20px; height:20px; margin-right:8px;" />Descargá uTorrent</a>
                                 <input type="button" onclick="LlamarJsonDelServidor();" value="Descargar Álbum" class="button-gnrl" />
-                                <div id="resultado" class="col-12 pl-2">
+                                <div id="resultado" class="col-12 pl-2 pb-2">
                                 </div>
                             </div>
                             <div class="col-md-8 px-3 pb-2">
@@ -45,10 +44,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <p class="card-text pt-4 pl-2"></p>
-                                </div>
-                                <div class="row card-body">
-
                                 </div>
                             </div>
                         </div>
@@ -65,10 +60,7 @@
     </div>
 
 
-
-
-
-<!-- SCRIPT PARA BUSCAR LA LISTA DE DESCARGAS DEL CONTROLADOR DISCO -->
+<!-- SCRIPT QUE A PARTIR DE UNA FUNCIÓN LLAMA AL MÉTODO "LlamarJson" PARA BUSCAR LA LISTA "DescargaDisco" -->
 
     <script>
     function LlamarJsonDelServidor()
@@ -84,14 +76,19 @@
                 data: {},
                 success: function (result) {
                     $("#resultado").html('');
+                    //Genero un contador que recorre la lista "DescargaDisco" hasta llegar a la propiedad Disco de la clase
+                    // "DescargaDisco" que coincida con
+                    // la propiedad "nvarchNombre" de la clase Disco.
                     for (var i = 0; i < result.length; i++) {
+                        //Si es así y los nombres coinciden, inserto en el DOM, específicamente en el div con #resultado
+                        // la etiqueta <a href=""></a> con la propiedad "Url" que corresponda.
                         if (result[i].Disco == "@Model.nvarchNombre") {
                             $("#resultado").append("<a href=" + result[i].Url + ">" + "Descargar Torrent" + "</a>");
                         }
                     }
                 },
                 error: function (xhr) {
-                    //Debugger;
+                    //Debugger
                     console.log(xhr.responseText);
                     alert("Hubo un problema...");
                 }

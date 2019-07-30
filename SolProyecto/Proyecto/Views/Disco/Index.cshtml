@@ -41,17 +41,17 @@
 <div class="container-fluid bajar pl-5 mt-5 mb-5 pb-5 pr-5">
     <div class="row">
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.OrderBy(n => n.Artista.nvarchNombre))
         {
             if (item.varbPortada != null)
             {
-                <div class="col-12 col-xs-12 col-md-4 col-lg-6 pt-5">
+                <div class="col-12 col-xs-12 col-md-6 col-lg-6 pt-5">
                     <div class="card mb-2">
                         <div class="row" id="card-discos">
-                            <div class="col-6">
-                                <img src=" @Url.Action("GetImage", "Disco", new { discoID = item.ID })" style="max-width:100%" />
+                            <div id="album" class="col-lg-6 col-md-12 col-xs-12 col-12">
+                                <img class="album" src=" @Url.Action("GetImage", "Disco", new { discoID = item.ID })" style="width:220px" />
                             </div>
-                            <div class="col-12 col-xs-12 col-md-6 col-lg-6">
+                            <div class="col-12 col-xs-12 col-md-12 col-lg-6">
                                 <div class="row card-body">
                                     <div class="col-12 d-flex justify-content-center">
                                         <h4 style="margin-bottom:2px" class="card-title">@item.nvarchNombre</h4>

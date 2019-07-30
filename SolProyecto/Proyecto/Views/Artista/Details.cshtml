@@ -12,18 +12,17 @@
             @Html.ActionLink("Editar", "Edit", new { id = Model.ID }, new { @class = "button-gnrl" })
             @Html.ActionLink("Borrar", "Delete", new { id = Model.ID }, new { @class = "button-gnrl" })
             @Html.ActionLink("Volver a Artistas", "Index", null, new { @class = "button-gnrl" })
+            <!-- Si me logueo como Admin, permito agregar un álbum. -->
             @if (Request.IsAuthenticated && User.IsInRole("Admin"))
             {
-                        @Html.ActionLink("Agregar Álbum", "Create", new { controller = "Disco" }, new { @class = "button-gnrl" })
+                @Html.ActionLink("Agregar Álbum", "Create", new { controller = "Disco" }, new { @class = "button-gnrl" })
             }
-
         </div>
     </div>
     <div class="row justify-content-center">
         @if (Model.varbImagen != null)
         {
             <div class="container py-3 pl-3 pr-3">
-
                 <div class="card">
                     <div class="row">
                         <div class="col-md-4">
@@ -40,8 +39,8 @@
                                 <p class="card-text pt-4 pl-2">@Model.nvarchBiografia</p>
                             </div>
                             <div class="row card-body">
+                                <!-- Vista parcial que me muestra todos los discos de un artista. -->
                                 @Html.Partial("_TraerDiscosPorArtista")
-
                             </div>
                         </div>
                     </div>
@@ -49,10 +48,9 @@
             </div>
         }
     </div>
-            <div class="row">
-                <div class="col-12 pt-3 pb-5">
-                    @Html.ActionLink("Inicio", "Index", new { controller = "Home" }, new { @class = "button-gnrl" })
-                </div>
-            </div>
-
+    <div class="row">
+        <div class="col-12 pt-3 pb-5">
+            @Html.ActionLink("Inicio", "Index", new { controller = "Home" }, new { @class = "button-gnrl" })
         </div>
+    </div>
+</div>

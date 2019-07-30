@@ -28,6 +28,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <!-- Si mi usuario está logueado como Admin, le muestro los siguientes links en el nav -->
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <li>
@@ -35,11 +36,12 @@
                         </li>
                     }
                         <li>
-                            @Html.ActionLink("Discos", "Index", new { controller = "Disco" }, new { @class = "nav-item nav-link" })
+                            @Html.ActionLink("Álbumes", "Index", new { controller = "Disco" }, new { @class = "nav-item nav-link" })
                         </li>
                         <li>
                             @Html.ActionLink("Canciones", "Index", new { controller = "Pista" }, new { @class = "nav-item nav-link" })
                         </li>
+                    <!-- Vista parcial para el logueo del administrador. -->
                         <li>
                             @Html.Partial("_LoginPartial")
                         </li>
